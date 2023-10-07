@@ -1,0 +1,9 @@
+.editor {
+  max-height: 300px;
+  overflow-y: auto;
+  border: solid 2px rgb(134, 136, 138);
+  border-radius: 5px;
+}
+::ng-deep .mdc-dialog__surface {
+  overflow-y: unset;
+}

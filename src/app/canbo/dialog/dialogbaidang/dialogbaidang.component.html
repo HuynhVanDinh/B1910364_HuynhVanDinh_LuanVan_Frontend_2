@@ -1,0 +1,99 @@
+<app-progress-spinner-overlay *ngIf="isLoading"></app-progress-spinner-overlay>
+<div class="h-25 bg-success text-white">
+  <div class="row">
+    <div class="col-11 mt-2">
+      <h1 class="pl-4">
+        {{ isEdit ? ("suabaidang" | translate) : ("thembaidang" | translate) }}
+      </h1>
+      <!-- <h1 class="p-2">{{ "addbasetype" | translate }}</h1> -->
+    </div>
+    <div class="col-1 mt-2">
+      <b class="text-white h2" (click)="closedialog()">X</b>
+    </div>
+  </div>
+</div>
+<form [formGroup]="myForm">
+  <div class="m-4 editor">
+    <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+    <ngx-editor
+      formControlName="text"
+      [editor]="editor"
+      [(ngModel)]="text"
+      [disabled]="false"
+      [placeholder]="'Nội dung bài đăng...'"
+    ></ngx-editor>
+    <mat-error
+      *ngIf="myForm.get('text')!.invalid && myForm.get('text')!.touched"
+    >
+      Vui lòng nhập nội dung !!
+    </mat-error>
+  </div>
+  <div class="m-2">
+    <div class="col-md-12">
+      <mat-form-field class="w-100">
+        <mat-label>Số lượng</mat-label>
+        <!-- <span matPrefix>+1 &nbsp;</span> -->
+        <input
+          type="text"
+          matInput
+          formControlName="soluong"
+          [(ngModel)]="soluong"
+          placeholder="Vd: 200"
+          required
+          maxlength="3"
+          (input)="onPhoneNumberInput($event)"
+          #input
+        />
+        <mat-hint align="end">Số tối đa {{ input.value.length }}/3</mat-hint>
+        <!-- <mat-icon matSuffix>mode_edit</mat-icon> -->
+        <mat-error
+          *ngIf="
+            myForm.get('soluong')!.invalid && myForm.get('soluong')!.touched
+          "
+          >Vui lòng nhập số lượng sinh viên !!</mat-error
+        >
+      </mat-form-field>
+    </div>
+    <div class="col-md-12 mb-2">
+      <mat-form-field class="w-100" *ngIf="showInputField">
+        <mat-label>Trợ cấp</mat-label>
+        <input
+          min="0"
+          type="number"
+          matInput
+          formControlName="trocap"
+          placeholder="Vd: Khoa CNTT"
+          [(ngModel)]="trocap"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+</form>
+<div class="m-2">
+  <mat-checkbox [(ngModel)]="showInputField" (change)="onCheckboxChange()">Trợ cấp</mat-checkbox>
+</div>
+<div class="row m-3">
+  <div class="col-md-12 mt-2 mb-2">
+    <button
+      class="btn btn-success float-right ml-2"
+      *ngIf="!isEditMode"
+      (click)="themKhoa(text, soluong, trocap)"
+    >
+      {{ "add" | translate }}
+    </button>
+
+    <button
+      class="btn btn-success float-right ml-2"
+      *ngIf="isEditMode"
+      (click)="suaKhoa(id, text, soluong, trocap)"
+    >
+      {{ "edit" | translate }}
+    </button>
+    <button class="btn btn-primary float-right" (click)="refreshForm()">
+      {{ "refresh" | translate }}
+    </button>
+    <button class="btn btn-danger mr-2 float-right" (click)="closedialog()">
+      {{ "close" | translate }}
+    </button>
+  </div>
+</div>
