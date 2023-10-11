@@ -7,6 +7,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { HomeComponent } from './canbo/home/home.component';
 import { ErrorComponent } from './error/error.component';
 import { BaidangComponent } from './canbo/baidang/baidang.component';
+import { HosothuctapComponent } from './canbo/hosothuctap/hosothuctap.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -31,6 +32,12 @@ const routes: Routes = [
       {
         path: 'baidang',
         component: BaidangComponent,
+        canActivate: [AuthGuard],
+        data: { roles: ['unit'] },
+      },
+      {
+        path: 'hosothuctap',
+        component: HosothuctapComponent,
         canActivate: [AuthGuard],
         data: { roles: ['unit'] },
       },

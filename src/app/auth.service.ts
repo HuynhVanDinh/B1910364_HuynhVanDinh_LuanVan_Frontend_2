@@ -27,8 +27,9 @@ export class AuthService {
         // Xử lý phản hồi và thiết lập thông tin tài khoản đã đăng nhập
         // this.loggedInUser = { name: response.username };
         // console.log(response);
-        localStorage.setItem('code', response.id);
+        // localStorage.setItem('code', response.id);
         localStorage.setItem('username', response.username);
+          localStorage.setItem('accountid', response.id);
         return response; // Trả về phản hồi cho thành phần gọi để xử lý tiếp (nếu cần)
       })
     );

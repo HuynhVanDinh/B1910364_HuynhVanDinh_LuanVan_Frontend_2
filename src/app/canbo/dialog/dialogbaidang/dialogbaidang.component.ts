@@ -113,7 +113,7 @@ export class DialogbaidangComponent implements OnInit, OnDestroy {
     //     (data) => {
     //       image = data.filename;
     const authToken = localStorage.getItem('authToken');
-    const madv = localStorage.getItem('code');
+    const madv = localStorage.getItem('accountid');
     if (!authToken) {
       // console.log(authToken);
       console.error('Access token not found. User is not authenticated.');

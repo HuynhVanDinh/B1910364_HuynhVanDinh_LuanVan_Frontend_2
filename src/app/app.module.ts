@@ -42,6 +42,10 @@ import { DialogbaidangComponent } from './canbo/dialog/dialogbaidang/dialogbaida
 import { EditorModule } from 'primeng/editor';
 import { NgxEditorModule } from 'ngx-editor';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { HosothuctapComponent } from './canbo/hosothuctap/hosothuctap.component';
+import { TrangThaiPipeComponent } from './trang-thai.pipe/trang-thai.pipe.component';
+import { DialogPdfComponent } from './canbo/dialog/dialog-pdf/dialog-pdf.component';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,6 +62,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     BaidangComponent,
     OpenwarningComponent,
     DialogbaidangComponent,
+    HosothuctapComponent,
+    TrangThaiPipeComponent,
+    DialogPdfComponent,
   ],
   imports: [
     TranslateModule.forRoot({
@@ -89,6 +96,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     EditorModule,
     NgxEditorModule,
     MatCheckboxModule,
+    NgxExtendedPdfViewerModule,
     ToastrModule.forRoot({
       timeOut: 1500, // Thiết lập thời gian tồn tại là 1,5 giây
       progressBar: true, // Hiển thị thanh tiến trình
