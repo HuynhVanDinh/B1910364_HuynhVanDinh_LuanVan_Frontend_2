@@ -12,14 +12,15 @@ export class DangkyService {
     const url = `${this.baseUrl}/${maDvtt}/dangky`;
     return this.http.get(url);
   }
-  updateTrangThaiDangKy(maDK: number, trangThai: number, authToken: string): Observable<any> {
+  updateTrangThaiDangKy(maDK: number, baiDangId: number, trangThai: number, authToken: string): Observable<any> {
     const url = `${this.baseUrl}/${maDK}/capnhattrangthai?trangThaiMoi=${trangThai}`;
         const headers = new HttpHeaders({
           'Content-Type': 'application/json; charset=utf-8',
           Authorization: `Bearer ${authToken}`,
         });
-    // const body = { trangThai: trangThai }; // Data to be sent in the request body
-    return this.http.put(url, {
+    // const body = { baidangId: baiDangId };
+    // console.log(body); // Data to be sent in the request body
+    return this.http.put(url, baiDangId, {
       headers: headers,
     });
   }

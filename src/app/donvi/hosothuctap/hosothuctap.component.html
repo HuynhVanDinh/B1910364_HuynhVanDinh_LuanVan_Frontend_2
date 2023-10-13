@@ -182,16 +182,17 @@
           <button
             mat-raised-button
             color="accent"
-            (click)="updateDangKyStatus(element.maDK, 1)"
+            (click)="updateDangKyStatus(element.maDK, element.baiDang.maBD, 1)"
             *ngIf="element.trangThai == 0"
           >
+
             Tiếp nhận
           </button>
           <button
             class="ml-2"
             mat-raised-button
             color="warn"
-            (click)="updateDangKyStatus(element.maDK, 2)"
+            (click)="updateDangKyStatus(element.maDK, element.baiDang.maBD, 2)"
             *ngIf="element.trangThai == 0"
           >
             Từ chối

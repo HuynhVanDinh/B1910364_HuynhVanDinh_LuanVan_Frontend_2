@@ -88,7 +88,7 @@ export class HosothuctapComponent implements OnInit {
     }
     return color;
   }
-  updateDangKyStatus(maDK: number, trangThaiMoi: number) {
+  updateDangKyStatus(maDK: number, baiDangId: number, trangThaiMoi: number) {
     const authToken = localStorage.getItem('authToken');
     if (!authToken) {
       // console.log(authToken);
@@ -97,18 +97,18 @@ export class HosothuctapComponent implements OnInit {
     }
     this.isLoading = true;
     this.dangKyService
-      .updateTrangThaiDangKy(maDK, trangThaiMoi, authToken)
+      .updateTrangThaiDangKy(maDK, baiDangId, trangThaiMoi, authToken)
       .subscribe(
         (response) => {
           this.isLoading = false;
-          this.toastr.success('Thêm thành công');
+          this.toastr.success('Tiếp nhận thành công');
           this.getAllDangKy();
           // Handle success
           console.log('Status updated successfully:', response);
         },
         (error) => {
           this.isLoading = false;
-          this.toastr.error('Lỗi thêm bài đăng');
+          this.toastr.error(error.message);
           // Handle error
           console.error('Error updating status:', error);
         }
