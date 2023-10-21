@@ -56,7 +56,7 @@ export class LoginComponent {
           case this.authService.hasRole('ROLE_UNIT'):
             this.router.navigate(['/unit']); // Chuyển hướng đến trang admin
             break;
-          case this.authService.hasRole('ROLE_STUDENT'):
+          case this.authService.hasRole('ROLE_CADRE'):
             this.router.navigate(['/canbo']); // Chuyển hướng đến trang user
             break;
           default:

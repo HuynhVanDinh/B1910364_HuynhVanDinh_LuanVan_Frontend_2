@@ -4,22 +4,38 @@ import { CanboComponent } from './canbo/canbo.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 import { LayoutComponent } from './layout/layout.component';
-import { HomeComponent } from './canbo/home/home.component';
+import { HomeComponent } from './home/home.component';
 import { ErrorComponent } from './error/error.component';
 import { BaidangComponent } from './donvi/baidang/baidang.component';
 import { HosothuctapComponent } from './donvi/hosothuctap/hosothuctap.component';
 import { QlCanboComponent } from './donvi/ql-canbo/ql-canbo.component';
 import { QlSinhvienthuctapComponent } from './donvi/ql-sinhvienthuctap/ql-sinhvienthuctap.component';
-import { PhancongCanboComponent } from './donvi/phancong-canbo/phancong-canbo.component';
+import { DanhsachPhancongComponent } from './donvi/danhsach-phancong/danhsach-phancong.component';
+import { PhancongCongviecComponent } from './canbo/phancong-congviec/phancong-congviec.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {
     path: 'canbo',
-    component: CanboComponent,
+    component: HomeComponent,
     canActivate: [AuthGuard],
-    data: { roles: ['student'] },
-  },
+    data: { roles: ['cadre']},
+    children: [
+        // {
+        //   path: '',
+        //   component: HomeComponent,
+        //   canActivate: [AuthGuard],
+        //   data: { roles: ['cadre'] },
+        // },
+        {
+          path: 'phancong-congviec',
+          component: PhancongCongviecComponent,
+          canActivate: [AuthGuard],
+          data: { roles: ['cadre'] },
+        },
+      ],
+
+    },
   {
     path: 'unit',
     component: LayoutComponent,
@@ -58,7 +74,7 @@ const routes: Routes = [
       },
       {
         path: 'phancong',
-        component: PhancongCanboComponent,
+        component: DanhsachPhancongComponent,
         canActivate: [AuthGuard],
         data: { roles: ['unit'] },
       },

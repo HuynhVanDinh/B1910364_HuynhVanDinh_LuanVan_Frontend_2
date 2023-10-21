@@ -18,7 +18,7 @@ import { DonviComponent } from './donvi/donvi.component';
 import { CanboComponent } from './canbo/canbo.component';
 import { ErrorComponent } from './error/error.component';
 import { LayoutComponent } from './layout/layout.component';
-import { HomeComponent } from './canbo/home/home.component';
+import { HomeComponent } from './home/home.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MatTreeModule } from '@angular/material/tree';
@@ -53,8 +53,15 @@ import { MatCardModule } from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { MatSelectModule } from '@angular/material/select';
+import { NgMaterialMultilevelMenuModule } from 'ng-material-multilevel-menu';
+import { MultilevelMenuService } from 'ng-material-multilevel-menu';
+import { DialogPhancongCanboComponent } from './donvi/dialog/dialog-phancong-canbo/dialog-phancong-canbo.component';
+import { DanhsachPhancongComponent } from './donvi/danhsach-phancong/danhsach-phancong.component';
 import { PhancongCanboComponent } from './donvi/phancong-canbo/phancong-canbo.component';
-
+import { PickListModule } from 'primeng/picklist';
+import { DialogChangeComponent } from './donvi/dialog/dialog-change/dialog-change.component';
+import { PhancongCongviecComponent } from './canbo/phancong-congviec/phancong-congviec.component';
+import { MatTabsModule } from '@angular/material/tabs';
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,6 +85,10 @@ import { PhancongCanboComponent } from './donvi/phancong-canbo/phancong-canbo.co
     QlSinhvienthuctapComponent,
     DialogCanboComponent,
     PhancongCanboComponent,
+    DialogPhancongCanboComponent,
+    DanhsachPhancongComponent,
+    DialogChangeComponent,
+    PhancongCongviecComponent,
   ],
   imports: [
     TranslateModule.forRoot({
@@ -87,6 +98,7 @@ import { PhancongCanboComponent } from './donvi/phancong-canbo/phancong-canbo.co
         deps: [HttpClient],
       },
     }),
+    MatTabsModule,
     MatFormFieldModule,
     ReactiveFormsModule,
     BrowserModule,
@@ -114,6 +126,8 @@ import { PhancongCanboComponent } from './donvi/phancong-canbo/phancong-canbo.co
     RadioButtonModule,
     MatRadioModule,
     MatSelectModule,
+    NgMaterialMultilevelMenuModule,
+    PickListModule,
     ToastrModule.forRoot({
       timeOut: 1500, // Thiết lập thời gian tồn tại là 1,5 giây
       progressBar: true, // Hiển thị thanh tiến trình
@@ -121,6 +135,7 @@ import { PhancongCanboComponent } from './donvi/phancong-canbo/phancong-canbo.co
     }),
   ],
   providers: [
+    MultilevelMenuService,
     {
       provide: MatPaginatorIntl,
       useClass: CustomPaginatorIntl, // Sử dụng custom PaginatorIntl

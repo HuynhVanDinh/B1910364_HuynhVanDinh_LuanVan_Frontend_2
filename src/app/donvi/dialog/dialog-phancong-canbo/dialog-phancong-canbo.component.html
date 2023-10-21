@@ -1,0 +1,63 @@
+<div class="h-25 bg-success text-white head-from mb-3">
+  <div class="row">
+    <div class="col-11 mt-2">
+      <h1 class="pl-4">
+        Phân công cán bộ hướng dẫn
+        <!-- {{ isEdit ? ("suacb" | translate) : ("themcb" | translate) }} -->
+      </h1>
+    </div>
+    <div class="col-1 mt-2">
+      <b class="text-white h2" (click)="closedialog()">X</b>
+    </div>
+  </div>
+</div>
+<p-pickList
+  [dragdrop]="true"
+  [source]="sourceList"
+  [target]="targetList"
+  [responsive]="true"
+  [targetStyle]="{ height: '20rem' }"
+  filterBy="sinhVien.tenSV"
+  [sourceStyle]="{ height: '20rem' }"
+  sourceHeader="Danh sách sinh viên"
+  targetHeader="Cán bộ: {{ data.canbo.tenCB }}"
+  sourceFilterPlaceholder="Tìm kiếm sinh viên"
+  targetFilterPlaceholder="Tìm kiếm sinh viên"
+  breakpoint="1400px"
+>
+  <ng-template let-product pTemplate="item">
+    <div class="flex flex-wrap p-2 align-items-center gap-3">
+      <div class="row">
+        <div class="col-4">
+          <img
+            class="w-4rem shadow-2 flex-shrink-0 border-round"
+             [src]="
+             product.sinhVien.hinhAnh
+                ? 'http://localhost:8080/file/' + product.sinhVien.hinhAnh
+                : 'http://localhost:8080/file/20230918201356_user.png'
+            "
+            width="100px"
+            height="100px"
+            alt="File Image"
+          />
+        </div>
+        <div class="col-8">
+          <div class="flex-1 flex flex-column gap-2">
+            <span class="font-bold">Mã SV: {{ product.sinhVien.maSV }}</span> <br>
+            <span class="font-bold">Tên SV:<b> {{ product.sinhVien.tenSV }}</b></span> <br>
+            <span class="font-bold">Giới tính: {{ product.sinhVien.gioiTinh }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-pickList>
+
+<button class="btn btn-danger mr-2 mb-2 float-right" (click)="closedialog()">
+  {{ "close" | translate }}
+</button>
+<button class="btn btn-primary mr-2 mb-2 float-right" *ngIf="!sourceList" (click)="onSubmit()">
+  Thêm
+  <!-- {{ "refresh" | translate }} -->
+</button>
+<!-- <button class="btn btn-primary" (click)="onSubmit()">Gửi</button> -->

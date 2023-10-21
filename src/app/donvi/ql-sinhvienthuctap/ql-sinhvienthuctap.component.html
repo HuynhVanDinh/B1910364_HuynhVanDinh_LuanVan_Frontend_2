@@ -1,1 +1,233 @@
-<p>ql-sinhvienthuctap works!</p>
+<app-progress-spinner-overlay *ngIf="isLoading"></app-progress-spinner-overlay>
+<div class="shadow p-2 mx-2 my-2 rounded">
+  <div class="row">
+    <div class="col-md-10">
+      <h2 class="text-success m-0">Quản trị hồ sơ sinh viên thực tập</h2>
+      <!-- <h2 class="text-success m-0">{{ "Mgtype" | translate }}</h2> -->
+      <p>Danh mục > Hồ sơ sinh viên thực tập</p>
+      <!-- <p>{{ "path" | translate }}</p> -->
+    </div>
+    <div class="col-md-2 mt-3">
+      <!-- <button
+        class="ml-3 bg-success text-white"
+        mat-raised-button
+        (click)="openDialogthem()"
+      >
+        <mat-icon>add</mat-icon>{{ "add" | translate }}
+      </button> -->
+    </div>
+  </div>
+</div>
+<div class="my-2 p-2">
+  <mat-accordion>
+    <mat-expansion-panel
+      (opened)="panelOpenState = true"
+      (closed)="panelOpenState = false"
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title class="text-success h5">
+          {{ "search" | translate }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="row">
+        <div class="col-md-6">
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="searchName"
+            [placeholder]="'keysearch' | translate"
+            (keyup.enter)="searchKhoa()"
+          />
+        </div>
+        <div class="col-md-6 align-center">
+          <button
+            class="mr-2"
+            mat-raised-button
+            color="primary"
+            (click)="refreshSearch()"
+          >
+            <mat-icon>refresh</mat-icon>{{ "refresh" | translate }}
+          </button>
+          <button
+            class="mr-2 t-search"
+            mat-raised-button
+            (click)="searchKhoa()"
+          >
+            <mat-icon>search</mat-icon>{{ "search" | translate }}
+          </button>
+          <!-- <button class="mr-2" mat-raised-button (click)="exportToPdf()">
+            <mat-icon> picture_as_pdf </mat-icon>Xuất PDF
+          </button> -->
+          <!-- <button class="btn btn-info" (click)="exportData()">
+            <mat-icon class="pt-1">arrow_downward</mat-icon> Export
+          </button> -->
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <div class="mat-elevation-z8 p-2 mt-2">
+    <div class="line m-1 float-left"></div>
+    <div class="row">
+      <div class="col-8">
+        <div>
+          <h1>
+            <b>Danh sách hồ sơ sinh viên thực tập</b>
+            <!-- <b>{{ "Base type" | translate }}</b> -->
+          </h1>
+        </div>
+      </div>
+      <div class="col-4">
+        <!-- <mat-form-field class="float-right w-50">
+          <mat-label>Bộ lọc</mat-label>
+          <input
+            matInput
+            (keyup)="applyFilter($event)"
+            placeholder="Vd: Mia"
+            #input
+          />
+          <mat-icon matSuffix>filter_alt</mat-icon>
+        </mat-form-field> -->
+      </div>
+    </div>
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="ma">
+        <th
+          class="bg-success text-white text-center"
+          mat-header-cell
+          *matHeaderCellDef
+        >
+          Mã sinh viên
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.sinhVien.maSV }}</td>
+      </ng-container>
+      <ng-container matColumnDef="tensinhvien">
+        <th
+          class="bg-success text-white text-center"
+          mat-header-cell
+          *matHeaderCellDef
+        >
+          Tên sinh viên
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.sinhVien.tenSV }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="hinhAnh">
+        <th
+          class="bg-success text-white text-center"
+          mat-header-cell
+          *matHeaderCellDef
+        >
+          Ảnh
+        </th>
+
+        <td mat-cell *matCellDef="let element">
+          <img
+            class="img_download"
+            [src]="
+              element.sinhVien.hinhAnh
+                ? 'http://localhost:8080/file/' + element.sinhVien.hinhAnh
+                : 'http://localhost:8080/file/20230918201356_user.png'
+            "
+            alt="File Image"
+          />
+          <button class="download" (click)="downloadFile(element.sinhVien.hinhAnh)">
+            <mat-icon>download</mat-icon>
+          </button>
+          <!-- {{ element.sinhVien.hinhAnh }} -->
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="gtinh">
+        <th
+          class="bg-success text-white text-center"
+          mat-header-cell
+          *matHeaderCellDef
+        >
+          Giới tính
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [innerHTML]="element.sinhVien.gioiTinh"
+        ></td>
+      </ng-container>
+
+      <ng-container matColumnDef="ngsinh">
+        <th
+          class="bg-success text-white text-center"
+          mat-header-cell
+          *matHeaderCellDef
+        >
+          Ngày sinh
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.sinhVien.ngaySinh }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="email">
+        <th
+          class="bg-success text-white text-center"
+          mat-header-cell
+          *matHeaderCellDef
+        >
+          Email
+        </th>
+        <td class="text-center" mat-cell *matCellDef="let element">
+          {{ element.sinhVien.account.email }}
+          <!-- <mat-icon (click)="exportToPdf('http://localhost:8080/file/'+element.bangDiem)">visibility</mat-icon> -->
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="trangThai">
+        <th
+          class="bg-success text-white text-center"
+          mat-header-cell
+          *matHeaderCellDef
+        >
+          Trạng thái
+        </th>
+        <td
+          class="text-center btn-status"
+          mat-cell
+          *matCellDef="let element"
+          [ngStyle]="getColorForTrangThai(element.trangThai)"
+        >
+          <button
+            mat-raised-button
+            color="accent"
+            (click)="updateDangKyStatus(element.maDK, element.baiDang.maBD, 1)"
+            *ngIf="element.trangThai == 0"
+          >
+            Xác nhận hoàn thành
+          </button>
+          <!-- <button
+            class="ml-2"
+            mat-raised-button
+            color="warn"
+            (click)="updateDangKyStatus(element.maDK, element.baiDang.maBD, 2)"
+            *ngIf="element.trangThai == 0"
+          >
+            Từ chối
+          </button> -->
+          <p
+            *ngIf="
+              element.trangThai == 1 ||
+              element.trangThai == 2 ||
+              element.trangThai == 3
+            "
+          >
+            {{ element.trangThai | trangThai }}
+          </p>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 25, 50]"
+      showFirstLastButtons
+    ></mat-paginator>
+  </div>
+</div>

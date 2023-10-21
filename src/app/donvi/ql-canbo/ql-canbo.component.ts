@@ -66,10 +66,6 @@ export class QlCanboComponent implements OnInit {
           });
       });
     }
-    // this.canBoService.getCanBoByDonViThucTap(dvttid).subscribe((data) => {
-    //   this.canBoList = data;
-    //   console.log(this.canBoList);
-    // });
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

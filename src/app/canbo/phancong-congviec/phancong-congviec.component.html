@@ -1,0 +1,36 @@
+<div class="shadow p-2 mx-2 my-2 rounded">
+  <div class="row">
+    <div class="col-md-10">
+      <h2 class="text-success m-0">Phân công công việc</h2>
+      <!-- <h2 class="text-success m-0">{{ "Mgtype" | translate }}</h2> -->
+      <p>Danh mục > Phân công công việc</p>
+      <!-- <p>{{ "path" | translate }}</p> -->
+    </div>
+    <div class="col-md-2 mt-3">
+      <button
+        [disabled]="tuans.length < 8"
+        class="ml-3 bg-success text-white"
+        mat-raised-button
+      >
+        <mat-icon>add</mat-icon>
+        Thêm tuần
+        <!-- {{ "add" | translate }} -->
+      </button>
+    </div>
+  </div>
+</div>
+<div class="mat-elevation-z8 p-2 m-2">
+  <mat-tab-group>
+    <mat-tab *ngFor="let tuan of tuans">
+      <ng-template mat-tab-label>
+        {{ tuan.ten_tuan }} <br />
+        ({{ tuan.batdau }}) - ({{ tuan.hethan }})
+        <!-- Hiển thị tên của tuần làm tiêu đề của tab -->
+      </ng-template>
+      <!-- Nội dung của từng tab -->
+      <h6>{{ tuan.batdau }}</h6>
+      <h6>{{ tuan.hethan }}</h6>
+      <!-- Thêm nội dung khác tùy ý -->
+    </mat-tab>
+  </mat-tab-group>
+</div>

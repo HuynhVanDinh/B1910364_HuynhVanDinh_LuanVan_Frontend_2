@@ -1,1 +1,59 @@
-<p>phancong-canbo works!</p>
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title-group>
+      <img
+        mat-card-sm-image
+        [src]="
+          canbo.hinhAnh
+            ? 'http://localhost:8080/file/' + canbo.hinhAnh
+            : 'http://localhost:8080/file/20230918201356_user.png'
+        "
+        alt="File Image"
+      />
+      <mat-card-title>{{ canbo.tenCB }}</mat-card-title>
+      <mat-card-subtitle
+        >Cán bộ hướng dẫn
+        <button
+          class="mr-2 mt-2"
+          mat-raised-button
+          color="accent"
+          (click)="openDialogPhancong(canbo)"
+        >
+          <mat-icon>add</mat-icon>
+          Thêm sinh viên
+          <!-- {{ "edit" | translate }} -->
+        </button>
+      </mat-card-subtitle>
+    </mat-card-title-group>
+  </mat-card-header>
+  <mat-card-content>
+    <hr />
+    <div *ngFor="let sv of listsinhvien">
+      <div class="row">
+        <div class="col-md-3">
+          <img
+            mat-card-sm-image
+            [src]="
+              sv.sinhVien.hinhAnh
+                ? 'http://localhost:8080/file/' + sv.sinhVien.hinhAnh
+                : 'http://localhost:8080/file/20230918201356_user.png'
+            "
+            alt="File Image"
+          />
+        </div>
+        <div class="col-md-7">
+          <span>Mã SV: {{ sv.sinhVien.maSV }}</span> <br />
+          <span
+            >Tên SV: <b>{{ sv.sinhVien.tenSV }}</b></span
+          >
+          <br />
+          <span>Giới tính: {{ sv.sinhVien.gioiTinh }}</span>
+        </div>
+        <div class="col-md-2">
+           <mat-icon class="sync-icon text-right"  (click)="openDialogChange(sv.sinhVien)">sync</mat-icon>
+        </div>
+      </div>
+      <hr />
+    </div>
+  </mat-card-content>
+</mat-card>

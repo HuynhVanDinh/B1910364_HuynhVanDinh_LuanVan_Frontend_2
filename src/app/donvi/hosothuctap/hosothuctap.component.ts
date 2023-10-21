@@ -83,6 +83,9 @@ export class HosothuctapComponent implements OnInit {
       case 2:
         color = { color: 'red' };
         break;
+      case 3:
+        color = { color: 'blue' };
+        break;
       default:
         color = {}; // Mặc định không có màu
     }

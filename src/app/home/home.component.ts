@@ -1,47 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-// import {
-//   MatTreeFlatDataSource,
-//   MatTreeFlattener,
-// } from '@angular/material/tree';
-// import { FlatTreeControl } from '@angular/cdk/tree';
-// interface FoodNode {
-//   name: string;
-//   children?: FoodNode[];
-// }
+import { TranslateService } from '@ngx-translate/core';
+import { AuthService } from 'src/app/auth.service';
 
-// const TREE_DATA: FoodNode[] = [
-//   {
-//     name: 'Fruit',
-//     children: [{ name: 'Apple' }, { name: 'Banana' }, { name: 'Fruit loops' }],
-//   },
-//   {
-//     name: 'Vegetables',
-//     children: [
-//       {
-//         name: 'Green',
-//         children: [{ name: 'Broccoli' }, { name: 'Brussels sprouts' }],
-//       },
-//       {
-//         name: 'Orange',
-//         children: [{ name: 'Pumpkins' }, { name: 'Carrots' }],
-//       },
-//     ],
-//   },
-// ];
-// interface ExampleFlatNode {
-//   expandable: boolean;
-//   name: string;
-//   level: number;
-// }
 @Component({
-  selector: 'app-layout',
-  templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.css'],
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css'],
 })
-export class LayoutComponent implements OnInit {
+export class HomeComponent implements OnInit {
   loggedInUser: any;
   isDrawerOpen: boolean = true;
   panelOpenState = false;
@@ -189,4 +156,3 @@ export class LayoutComponent implements OnInit {
     selectedListFontColor: '#ff5733',
   };
 }
-

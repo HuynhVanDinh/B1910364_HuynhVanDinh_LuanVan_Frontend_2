@@ -31,8 +31,8 @@ export class AuthGuard implements CanActivate {
         case this.authService.hasRole('ROLE_UNIT') &&
           requiredRoles.includes('unit'):
           return true; // Người dùng có vai trò admin và trang yêu cầu vai trò admin
-        case this.authService.hasRole('ROLE_STUDENT') &&
-          requiredRoles.includes('student'):
+        case this.authService.hasRole('ROLE_CADRE') &&
+          requiredRoles.includes('cadre'):
           return true; // Người dùng có vai trò user và trang yêu cầu vai trò user
         // Thêm các trường hợp khác tùy theo vai trò và trang
         default:
