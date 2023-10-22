@@ -8,9 +8,10 @@
     </div>
     <div class="col-md-2 mt-3">
       <button
-        [disabled]="tuans.length < 8"
+        [disabled]="tuans.length >= 8"
         class="ml-3 bg-success text-white"
         mat-raised-button
+        (click)="openDialogThem()"
       >
         <mat-icon>add</mat-icon>
         Thêm tuần
@@ -19,18 +20,31 @@
     </div>
   </div>
 </div>
-<div class="mat-elevation-z8 p-2 m-2">
+<div *ngIf="tuans.length != 0" class="mat-elevation-z8 p-2 m-2">
   <mat-tab-group>
     <mat-tab *ngFor="let tuan of tuans">
       <ng-template mat-tab-label>
         {{ tuan.ten_tuan }} <br />
-        ({{ tuan.batdau }}) - ({{ tuan.hethan }})
+        ({{ tuan.batdau }}) - ({{ tuan.hethan }})<mat-icon (click)="openDialogSua(tuan)">edit</mat-icon>
         <!-- Hiển thị tên của tuần làm tiêu đề của tab -->
       </ng-template>
+      <app-congviec-sinhvien [tuan]="tuan"></app-congviec-sinhvien>
       <!-- Nội dung của từng tab -->
-      <h6>{{ tuan.batdau }}</h6>
-      <h6>{{ tuan.hethan }}</h6>
+
       <!-- Thêm nội dung khác tùy ý -->
     </mat-tab>
   </mat-tab-group>
 </div>
+<div class="center-content" *ngIf="tuans.length == 0">
+  <h1>Chưa có tuần nào</h1>
+  <button
+    [disabled]="tuans.length < 8"
+    class="ml-3 bg-success text-white"
+    mat-raised-button
+  >
+    <mat-icon>add</mat-icon>
+    Thêm tuần
+    <!-- {{ "add" | translate }} -->
+  </button>
+</div>
+

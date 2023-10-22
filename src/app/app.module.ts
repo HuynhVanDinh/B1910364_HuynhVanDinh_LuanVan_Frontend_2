@@ -62,6 +62,10 @@ import { PickListModule } from 'primeng/picklist';
 import { DialogChangeComponent } from './donvi/dialog/dialog-change/dialog-change.component';
 import { PhancongCongviecComponent } from './canbo/phancong-congviec/phancong-congviec.component';
 import { MatTabsModule } from '@angular/material/tabs';
+// import { NhomSinhvienComponent } from './canbo/nhom-sinhvien/nhom-sinhvien.component';
+import { CongviecSinhvienComponent } from './canbo/congviec-sinhvien/congviec-sinhvien.component';
+import { NhomSinhvienComponent } from './canbo/nhom-sinhvien/nhom-sinhvien.component';
+import { DialogTuanComponent } from './canbo/dialog/dialog-tuan/dialog-tuan.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -89,6 +93,10 @@ import { MatTabsModule } from '@angular/material/tabs';
     DanhsachPhancongComponent,
     DialogChangeComponent,
     PhancongCongviecComponent,
+    // NhomSinhvienComponent,
+    CongviecSinhvienComponent,
+    NhomSinhvienComponent,
+    DialogTuanComponent,
   ],
   imports: [
     TranslateModule.forRoot({

@@ -12,6 +12,11 @@ export class CanboService {
     const url = `${this.baseUrl}/listcanbo/${dvttid}`;
     return this.http.get(url);
   }
+  getMaCB(accountid: string | null): Observable<any> {
+    const url = `${this.baseUrl}/account/${accountid}`;
+    console.log(url);
+    return this.http.get(url);
+  }
   createCanBo(
     tenCB: string,
     gioiTinh: string,

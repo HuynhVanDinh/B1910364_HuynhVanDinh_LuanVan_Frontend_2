@@ -12,6 +12,7 @@ import { QlCanboComponent } from './donvi/ql-canbo/ql-canbo.component';
 import { QlSinhvienthuctapComponent } from './donvi/ql-sinhvienthuctap/ql-sinhvienthuctap.component';
 import { DanhsachPhancongComponent } from './donvi/danhsach-phancong/danhsach-phancong.component';
 import { PhancongCongviecComponent } from './canbo/phancong-congviec/phancong-congviec.component';
+import { CongviecSinhvienComponent } from './canbo/congviec-sinhvien/congviec-sinhvien.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -19,35 +20,40 @@ const routes: Routes = [
     path: 'canbo',
     component: HomeComponent,
     canActivate: [AuthGuard],
-    data: { roles: ['cadre']},
+    data: { roles: ['cadre'] },
     children: [
-        // {
-        //   path: '',
-        //   component: HomeComponent,
-        //   canActivate: [AuthGuard],
-        //   data: { roles: ['cadre'] },
-        // },
-        {
-          path: 'phancong-congviec',
-          component: PhancongCongviecComponent,
-          canActivate: [AuthGuard],
-          data: { roles: ['cadre'] },
-        },
-      ],
-
-    },
+      // {
+      //   path: '',
+      //   component: HomeComponent,
+      //   canActivate: [AuthGuard],
+      //   data: { roles: ['cadre'] },
+      // },
+      {
+        path: 'phancong-congviec',
+        component: PhancongCongviecComponent,
+        canActivate: [AuthGuard],
+        data: { roles: ['cadre'] },
+      },
+      {
+        path: 'test',
+        component: CongviecSinhvienComponent,
+        canActivate: [AuthGuard],
+        data: { roles: ['cadre'] },
+      },
+    ],
+  },
   {
     path: 'unit',
     component: LayoutComponent,
     canActivate: [AuthGuard],
     data: { roles: ['unit'] },
     children: [
-      {
-        path: '',
-        component: HomeComponent,
-        canActivate: [AuthGuard],
-        data: { roles: ['unit'] },
-      },
+      // {
+      //   path: '',
+      //   component: HomeComponent,
+      //   canActivate: [AuthGuard],
+      //   data: { roles: ['unit'] },
+      // },
       {
         path: 'baidang',
         component: BaidangComponent,
