@@ -59,6 +59,7 @@ import { DialogPhancongCanboComponent } from './donvi/dialog/dialog-phancong-can
 import { DanhsachPhancongComponent } from './donvi/danhsach-phancong/danhsach-phancong.component';
 import { PhancongCanboComponent } from './donvi/phancong-canbo/phancong-canbo.component';
 import { PickListModule } from 'primeng/picklist';
+import { KnobModule } from 'primeng/knob';
 import { DialogChangeComponent } from './donvi/dialog/dialog-change/dialog-change.component';
 import { PhancongCongviecComponent } from './canbo/phancong-congviec/phancong-congviec.component';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -66,6 +67,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { CongviecSinhvienComponent } from './canbo/congviec-sinhvien/congviec-sinhvien.component';
 import { NhomSinhvienComponent } from './canbo/nhom-sinhvien/nhom-sinhvien.component';
 import { DialogTuanComponent } from './canbo/dialog/dialog-tuan/dialog-tuan.component';
+import { DialogCongviecComponent } from './canbo/dialog/dialog-congviec/dialog-congviec.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -97,6 +99,7 @@ import { DialogTuanComponent } from './canbo/dialog/dialog-tuan/dialog-tuan.comp
     CongviecSinhvienComponent,
     NhomSinhvienComponent,
     DialogTuanComponent,
+    DialogCongviecComponent,
   ],
   imports: [
     TranslateModule.forRoot({
@@ -136,6 +139,7 @@ import { DialogTuanComponent } from './canbo/dialog/dialog-tuan/dialog-tuan.comp
     MatSelectModule,
     NgMaterialMultilevelMenuModule,
     PickListModule,
+    KnobModule,
     ToastrModule.forRoot({
       timeOut: 1500, // Thiết lập thời gian tồn tại là 1,5 giây
       progressBar: true, // Hiển thị thanh tiến trình

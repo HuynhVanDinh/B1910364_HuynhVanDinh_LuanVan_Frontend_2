@@ -15,7 +15,12 @@
         {{ sinhvien.sinhVien.tenSV }}</mat-card-title
       >
       <mat-card-subtitle>
-        <button class="mr-2 mt-2" mat-raised-button color="accent">
+        <button
+          class="mr-2 mt-2"
+          mat-raised-button
+          color="accent"
+          (click)="openDialogThem()"
+        >
           <mat-icon>add</mat-icon>
           Thêm công việc
           <!-- {{ "edit" | translate }} -->
@@ -24,6 +29,108 @@
     </mat-card-title-group>
   </mat-card-header>
   <mat-card-content>
+    <!-- <table class="table">
+      <thead>
+        <tr>
+          <th>{{ tuan.id_tuan }}</th>
+          <th>gfg</th>
+          <th>fsf</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td scope="row"></td>
+          <td>sd</td>
+          <td>fs</td>
+        </tr>
+        <tr>
+          <td scope="row"></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table> -->
+    <table class="table mt-2">
+      <thead>
+        <tr>
+          <th class="text-center" *ngFor="let column of displayedColumns">
+            {{ column }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="text-center" *ngFor="let congviec of ListCongViec">
+          <td scope="row">{{ congviec.maCV }}</td>
+          <td>{{ congviec.mota }}</td>
+          <td>
+            <div class="flex justify-content-center">
+              <p-knob
+                [(ngModel)]="congviec.tienDo"
+                valueTemplate="{value}%"
+              ></p-knob>
+            </div>
+          </td>
+          <td>{{ congviec.trangThaiCV }}</td>
+          <td>
+            <mat-icon class="text-primary" (click)="openDialogSua(congviec)"
+              >edit</mat-icon
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="w-100 text-danger" *ngIf="ListCongViec.length == 0">
+      <p class="text-center">Chưa có công việc nào</p>
+    </div>
+    <!-- <mat-accordion> -->
 
+    <!-- </mat-accordion> -->
   </mat-card-content>
+  <mat-expansion-panel
+    *ngIf="ListCongViec.length != 0"
+    (opened)="panelOpenState = true"
+    (closed)="panelOpenState = false"
+  >
+    <mat-expansion-panel-header>
+      <mat-panel-title class="h5">
+        Đánh giá
+        <!-- {{ "search" | translate }} -->
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="row">
+      <div class="col-md-12">
+        <form [formGroup]="myForm">
+          <div class="my-2">
+            <mat-form-field class="w-100">
+              <mat-label>Đánh giá công việc</mat-label>
+              <textarea
+                matInput
+                formControlName="Mota"
+                placeholder="Vd: Tốt"
+                [(ngModel)]="Mota"
+                required
+              ></textarea>
+              <mat-error
+                *ngIf="
+                  myForm.get('Mota')!.invalid && myForm.get('Mota')!.touched
+                "
+                >Vui lòng nhập đánh giá công việc !!</mat-error
+              >
+            </mat-form-field>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-6 align-center">
+        <!-- <button class="btn btn-primary mr-2" (click)="refreshSearch()">
+            <mat-icon class="pt-1">refresh</mat-icon>{{ "refresh" | translate }}
+          </button>
+          <button class="btn btn-success mr-2" (click)="searchSinhVien()">
+            <mat-icon class="pt-1">search</mat-icon>{{ "search" | translate }}
+          </button>
+          <button class="btn btn-info" (click)="exportData()">
+            <mat-icon class="pt-1">arrow_downward</mat-icon> Export
+          </button> -->
+      </div>
+    </div>
+  </mat-expansion-panel>
 </mat-card>

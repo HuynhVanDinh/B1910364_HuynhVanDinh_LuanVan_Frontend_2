@@ -5,3 +5,10 @@
   border-radius: 10px;
   box-shadow: black;
 }
+.center-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+}

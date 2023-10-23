@@ -38,9 +38,10 @@
 <div class="center-content" *ngIf="tuans.length == 0">
   <h1>Chưa có tuần nào</h1>
   <button
-    [disabled]="tuans.length < 8"
+    [disabled]="tuans.length >= 8"
     class="ml-3 bg-success text-white"
     mat-raised-button
+    (click)="openDialogThem()"
   >
     <mat-icon>add</mat-icon>
     Thêm tuần
