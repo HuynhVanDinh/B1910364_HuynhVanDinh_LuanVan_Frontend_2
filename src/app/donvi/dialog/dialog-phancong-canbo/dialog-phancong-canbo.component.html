@@ -56,7 +56,7 @@
 <button class="btn btn-danger mr-2 mb-2 float-right" (click)="closedialog()">
   {{ "close" | translate }}
 </button>
-<button class="btn btn-primary mr-2 mb-2 float-right" *ngIf="!sourceList" (click)="onSubmit()">
+<button class="btn btn-primary mr-2 mb-2 float-right" *ngIf="targetList.length != 0" (click)="onSubmit()">
   Thêm
   <!-- {{ "refresh" | translate }} -->
 </button>

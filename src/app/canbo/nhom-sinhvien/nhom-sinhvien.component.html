@@ -1,3 +1,4 @@
+<app-progress-spinner-overlay *ngIf="isLoading"></app-progress-spinner-overlay>
 <mat-card class="example-card">
   <mat-card-header>
     <mat-card-title-group>
@@ -70,11 +71,48 @@
               ></p-knob>
             </div>
           </td>
-          <td>{{ congviec.trangThaiCV }}</td>
           <td>
-            <mat-icon class="text-primary" (click)="openDialogSua(congviec)"
-              >edit</mat-icon
-            >
+            <!-- {{ congviec.trangThaiCV }} -->
+            <p-tag
+              *ngIf="congviec.trangThaiCV == 0"
+              severity="info"
+              [rounded]="true"
+              value="Đã giao"
+            ></p-tag>
+            <p-tag
+              *ngIf="congviec.trangThaiCV == 1"
+              severity="warning"
+              [rounded]="true"
+              value="Đang thực hiện"
+            ></p-tag>
+            <p-tag
+              *ngIf="congviec.trangThaiCV == 2"
+              severity="success"
+              [rounded]="true"
+              value="Hoàn thành"
+            ></p-tag>
+            <p-tag
+              *ngIf="congviec.trangThaiCV == 3"
+              severity="danger"
+              [rounded]="true"
+              value="Chưa hoàn thành"
+            ></p-tag>
+          </td>
+          <td>
+            <div>
+              <div class="btn">
+                <mat-icon class="text-warning" (click)="openDialogSua(congviec)"
+                  >edit</mat-icon
+                >
+              </div>
+              <div class="btn">
+                <mat-icon
+                  class="text-success"
+                  (click)="openDialogDuyet(congviec)"
+                  >done</mat-icon
+                >
+              </div>
+            </div>
           </td>
         </tr>
       </tbody>
@@ -120,16 +158,39 @@
           </div>
         </form>
       </div>
-      <div class="col-md-6 align-center">
+      <div class="col-md-12">
         <!-- <button class="btn btn-primary mr-2" (click)="refreshSearch()">
             <mat-icon class="pt-1">refresh</mat-icon>{{ "refresh" | translate }}
-          </button>
-          <button class="btn btn-success mr-2" (click)="searchSinhVien()">
-            <mat-icon class="pt-1">search</mat-icon>{{ "search" | translate }}
-          </button>
-          <button class="btn btn-info" (click)="exportData()">
+          </button> -->
+        <button class="btn btn-success float-right" (click)="danhgia(Mota)">
+          <mat-icon class="pt-1">edit</mat-icon>
+          Gửi đánh giá
+          <!-- {{ "search" | translate }} -->
+        </button>
+        <!-- <button class="btn btn-info" (click)="exportData()">
             <mat-icon class="pt-1">arrow_downward</mat-icon> Export
           </button> -->
+      </div>
+      <div class="col-md-12 mt-2" *ngIf="ListDanhGia.length != 0">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Mã đánh giá</th>
+              <th scope="col">Nội dung đánh giá</th>
+              <th class="text-right" scope="col">Tuỳ chọn</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let danhGia of ListDanhGia">
+              <td>{{ danhGia.maDG }}</td>
+              <td>{{ danhGia.noidungDG }}</td>
+              <td>
+
+                <button class="btn btn-danger float-right" (click)="xoadanhgia(danhGia.maDG)">Gỡ đánh giá</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </mat-expansion-panel>

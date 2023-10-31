@@ -24,6 +24,7 @@
     "@ngx-translate/http-loader": "^8.0.0",
     "bootstrap": "^4.6.2",
     "ng-material-multilevel-menu": "^6.0.2",
+    "ng-particles": "^3.12.0",
     "ngx-editor": "^16.0.1",
     "ngx-extended-pdf-viewer": "^18.0.2",
     "ngx-toastr": "^17.0.2",
@@ -32,6 +33,8 @@
     "quill": "^1.3.7",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "tsparticles-engine": "^2.12.0",
+    "tsparticles-slim": "^2.12.0",
     "zone.js": "~0.13.0"
   },
   "devDependencies": {

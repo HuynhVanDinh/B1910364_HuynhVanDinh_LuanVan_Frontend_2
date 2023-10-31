@@ -68,6 +68,10 @@ import { CongviecSinhvienComponent } from './canbo/congviec-sinhvien/congviec-si
 import { NhomSinhvienComponent } from './canbo/nhom-sinhvien/nhom-sinhvien.component';
 import { DialogTuanComponent } from './canbo/dialog/dialog-tuan/dialog-tuan.component';
 import { DialogCongviecComponent } from './canbo/dialog/dialog-congviec/dialog-congviec.component';
+import { TagModule } from 'primeng/tag';
+import { NgParticlesModule } from 'ng-particles';
+import { DialogDuyetcongviecComponent } from './canbo/dialog/dialog-duyetcongviec/dialog-duyetcongviec.component';
+import { DialogXoaDanhgiaComponent } from './canbo/dialog/dialog-xoa-danhgia/dialog-xoa-danhgia.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -100,6 +104,8 @@ import { DialogCongviecComponent } from './canbo/dialog/dialog-congviec/dialog-c
     NhomSinhvienComponent,
     DialogTuanComponent,
     DialogCongviecComponent,
+    DialogDuyetcongviecComponent,
+    DialogXoaDanhgiaComponent,
   ],
   imports: [
     TranslateModule.forRoot({
@@ -140,6 +146,8 @@ import { DialogCongviecComponent } from './canbo/dialog/dialog-congviec/dialog-c
     NgMaterialMultilevelMenuModule,
     PickListModule,
     KnobModule,
+    TagModule,
+    NgParticlesModule,
     ToastrModule.forRoot({
       timeOut: 1500, // Thiết lập thời gian tồn tại là 1,5 giây
       progressBar: true, // Hiển thị thanh tiến trình

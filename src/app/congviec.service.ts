@@ -50,7 +50,7 @@ export class CongviecService {
     canBoId: number,
     authToken: string
   ): Observable<any> {
-    const url = `${this.baseUrl}/`+id;
+    const url = `${this.baseUrl}/` + id;
     const headers = new HttpHeaders({
       Authorization: `Bearer ${authToken}`,
     });
@@ -62,6 +62,22 @@ export class CongviecService {
         sinhVienId: sinhVienId,
         canBoId: canBoId,
       },
+      headers: headers,
+    });
+  }
+  duyetCongViec(
+    id: number,
+    tiendo: number,
+    authToken: string
+  ): Observable<any> {
+    const url = `${this.baseUrl}/duyet/` + id;
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${authToken}`,
+    });
+    const body = {
+      tienDo: tiendo,
+    };
+    return this.http.put(url, body, {
       headers: headers,
     });
   }
