@@ -72,6 +72,7 @@ import { TagModule } from 'primeng/tag';
 import { NgParticlesModule } from 'ng-particles';
 import { DialogDuyetcongviecComponent } from './canbo/dialog/dialog-duyetcongviec/dialog-duyetcongviec.component';
 import { DialogXoaDanhgiaComponent } from './canbo/dialog/dialog-xoa-danhgia/dialog-xoa-danhgia.component';
+import { DanhsachSinhvienComponent } from './canbo/danhsach-sinhvien/danhsach-sinhvien.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -106,6 +107,7 @@ import { DialogXoaDanhgiaComponent } from './canbo/dialog/dialog-xoa-danhgia/dia
     DialogCongviecComponent,
     DialogDuyetcongviecComponent,
     DialogXoaDanhgiaComponent,
+    DanhsachSinhvienComponent,
   ],
   imports: [
     TranslateModule.forRoot({

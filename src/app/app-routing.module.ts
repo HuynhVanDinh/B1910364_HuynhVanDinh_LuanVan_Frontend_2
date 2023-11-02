@@ -13,6 +13,7 @@ import { QlSinhvienthuctapComponent } from './donvi/ql-sinhvienthuctap/ql-sinhvi
 import { DanhsachPhancongComponent } from './donvi/danhsach-phancong/danhsach-phancong.component';
 import { PhancongCongviecComponent } from './canbo/phancong-congviec/phancong-congviec.component';
 import { CongviecSinhvienComponent } from './canbo/congviec-sinhvien/congviec-sinhvien.component';
+import { DanhsachSinhvienComponent } from './canbo/danhsach-sinhvien/danhsach-sinhvien.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -31,6 +32,12 @@ const routes: Routes = [
       {
         path: 'phancong-congviec',
         component: PhancongCongviecComponent,
+        canActivate: [AuthGuard],
+        data: { roles: ['cadre'] },
+      },
+      {
+        path: 'danhsach-sinhvien',
+        component: DanhsachSinhvienComponent,
         canActivate: [AuthGuard],
         data: { roles: ['cadre'] },
       },
