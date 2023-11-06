@@ -131,7 +131,10 @@
             "
             alt="File Image"
           />
-          <button class="download" (click)="downloadFile(element.sinhVien.hinhAnh)">
+          <button
+            class="download"
+            (click)="downloadFile(element.sinhVien.hinhAnh)"
+          >
             <mat-icon>download</mat-icon>
           </button>
           <!-- {{ element.sinhVien.hinhAnh }} -->
@@ -184,20 +187,24 @@
           mat-header-cell
           *matHeaderCellDef
         >
-          Trạng thái
+          Thao tác
         </th>
-        <td
-          class="text-center btn-status"
-          mat-cell
-          *matCellDef="let element"
-
-        >
+        <td class="text-center btn-status" mat-cell *matCellDef="let element">
           <button
+            *ngIf="element.trangThai != 1"
             mat-raised-button
             color="accent"
-
+            (click)="chamdiem(element)"
           >
-            Xác nhận hoàn thành
+            Chấm điểm
+          </button>
+          <button
+            *ngIf="element.trangThai == 1"
+            mat-raised-button
+            color="warn"
+            (click)="suadiem(element)"
+          >
+            Hiệu chỉnh
           </button>
           <!-- <button
             class="ml-2"
@@ -208,15 +215,6 @@
           >
             Từ chối
           </button> -->
-          <!-- <p
-            *ngIf="
-              element.trangThai == 1 ||
-              element.trangThai == 2 ||
-              element.trangThai == 3
-            "
-          >
-            {{ element.trangThai | trangThai }}
-          </p> -->
         </td>
       </ng-container>
 

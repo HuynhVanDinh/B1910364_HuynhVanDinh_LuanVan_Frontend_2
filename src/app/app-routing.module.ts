@@ -13,7 +13,9 @@ import { QlSinhvienthuctapComponent } from './donvi/ql-sinhvienthuctap/ql-sinhvi
 import { DanhsachPhancongComponent } from './donvi/danhsach-phancong/danhsach-phancong.component';
 import { PhancongCongviecComponent } from './canbo/phancong-congviec/phancong-congviec.component';
 import { CongviecSinhvienComponent } from './canbo/congviec-sinhvien/congviec-sinhvien.component';
-import { DanhsachSinhvienComponent } from './canbo/danhsach-sinhvien/danhsach-sinhvien.component';
+import { ChamdiemSinhvienComponent } from './canbo/chamdiem-sinhvien/chamdiem-sinhvien.component';
+import { PageUnitComponent } from './donvi/page-unit/page-unit.component';
+
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -23,12 +25,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: ['cadre'] },
     children: [
-      // {
-      //   path: '',
-      //   component: HomeComponent,
-      //   canActivate: [AuthGuard],
-      //   data: { roles: ['cadre'] },
-      // },
+      {
+        path: '',
+        component: PhancongCongviecComponent,
+        canActivate: [AuthGuard],
+        data: { roles: ['cadre'] },
+      },
       {
         path: 'phancong-congviec',
         component: PhancongCongviecComponent,
@@ -36,8 +38,8 @@ const routes: Routes = [
         data: { roles: ['cadre'] },
       },
       {
-        path: 'danhsach-sinhvien',
-        component: DanhsachSinhvienComponent,
+        path: 'chamdiem-sinhvien',
+        component: ChamdiemSinhvienComponent,
         canActivate: [AuthGuard],
         data: { roles: ['cadre'] },
       },
@@ -55,12 +57,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: ['unit'] },
     children: [
-      // {
-      //   path: '',
-      //   component: HomeComponent,
-      //   canActivate: [AuthGuard],
-      //   data: { roles: ['unit'] },
-      // },
+      {
+        path: '',
+        component: PageUnitComponent,
+        canActivate: [AuthGuard],
+        data: { roles: ['unit'] },
+      },
       {
         path: 'baidang',
         component: BaidangComponent,

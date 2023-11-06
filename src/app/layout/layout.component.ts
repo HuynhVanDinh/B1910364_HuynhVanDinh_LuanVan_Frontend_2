@@ -112,72 +112,81 @@ export class LayoutComponent implements OnInit {
   menuItems = [
     {
       label: 'Trang chủ',
-      imageIcon: '/assets/imgs/home.png',
+      icon: 'home',
       link: '/unit',
       externalRedirect: true,
       // hrefTargetType: '_blank',
     },
+    // {
+    //   label: 'trang chủ',
+    //   faIcon: 'fab fa-accusoft',
+    //   items: [
+    //     {
+    //       label: 'Item 1.1',
+    //       imageIcon: '/assets/imgs/danhmuc.png',
+    //       link: '/unit/ql-sinhvienthuctap',
+    //       // faIcon: 'fab fa-accusoft',
+    //       externalRedirect: true,
+    //     },
+    //     {
+    //       label: 'Item 1.2',
+    //       faIcon: 'fab fa-accessible-icon',
+    //       items: [
+    //         {
+    //           label: 'Item 1.2.1',
+    //           link: '/item-1-2-1',
+    //           faIcon: 'fas fa-allergies',
+    //         },
+    //         {
+    //           label: 'Item 1.2.2',
+    //           faIcon: 'fas fa-ambulance',
+    //           items: [
+    //             {
+    //               label: 'Item 1.2.2.1',
+    //               link: 'item-1-2-2-1',
+    //               faIcon: 'fas fa-anchor',
+    //             },
+    //           ],
+    //         },
+    //       ],
+    //     },
+    //   ],
+    // },
     {
-      label: 'trang chủ',
-      faIcon: 'fab fa-accusoft',
+      label: 'Sinh viên thực tập',
+      link: '/unit/ql-sinhvienthuctap',
+      icon: 'school',
+      externalRedirect: true,
+    },
+    {
+      label: 'Danh mục',
+      icon: 'bookmark_manager',
       items: [
         {
-          label: 'Item 1.1',
-          imageIcon: '/assets/imgs/danhmuc.png',
-          link: '/unit/ql-sinhvienthuctap',
-          // faIcon: 'fab fa-accusoft',
+          label: 'Quản lý cán bộ',
+          link: '/unit/ql-canbo',
+          icon: 'person',
           externalRedirect: true,
         },
         {
-          label: 'Item 1.2',
-          faIcon: 'fab fa-accessible-icon',
-          items: [
-            {
-              label: 'Item 1.2.1',
-              link: '/item-1-2-1',
-              faIcon: 'fas fa-allergies',
-            },
-            {
-              label: 'Item 1.2.2',
-              faIcon: 'fas fa-ambulance',
-              items: [
-                {
-                  label: 'Item 1.2.2.1',
-                  link: 'item-1-2-2-1',
-                  faIcon: 'fas fa-anchor',
-                },
-              ],
-            },
-          ],
+          label: 'Quản lý bài đăng',
+          link: '/unit/baidang',
+          icon: 'post_add',
+          externalRedirect: true,
         },
       ],
     },
     {
-      label: 'Item 2',
-      icon: 'alarm',
-      items: [
-        {
-          label: 'Item 2.1',
-          link: '/item-2-1',
-          icon: 'favorite',
-        },
-        {
-          label: 'Item 2.2',
-          link: '/item-2-2',
-          icon: 'favorite_border',
-        },
-      ],
+      label: 'Phân công cán bộ',
+      link: '/unit/phancong',
+      icon: 'inventory',
+      externalRedirect: true,
     },
     {
-      label: 'Item 3',
-      link: '/item-3',
-      icon: 'offline_pin',
-    },
-    {
-      label: 'Item 4',
-      link: '/item-4',
-      icon: 'star_rate',
-      hidden: true,
+      label: 'Hồ sơ thực tập',
+      link: '/unit/hosothuctap',
+      icon: 'inventory',
+      externalRedirect: true,
     },
   ];
   config = {

@@ -1,0 +1,167 @@
+<app-progress-spinner-overlay *ngIf="isLoading"></app-progress-spinner-overlay>
+<div class="h-25 bg-success text-white head-from">
+  <div class="row">
+    <div class="col-11 mt-2">
+      <h1 class="pl-4">PHIẾU ĐÁNH GIÁ KẾT QUẢ THỰC TẬP</h1>
+      <!-- <h1 class="p-2">{{ "addbasetype" | translate }}</h1> -->
+    </div>
+    <div class="col-1 mt-2">
+      <b class="text-white h2" (click)="closedialog()">X</b>
+    </div>
+  </div>
+</div>
+<!-- <form [formGroup]="myForm">
+  <div class="m-2 my-2">
+    <mat-form-field class="w-100">
+      <mat-label>Mô tả công việc</mat-label>
+       <textarea matInput
+        formControlName="Mota"
+        placeholder="Vd: Tìm hiểu cơ quan"
+        [(ngModel)]="Mota"
+        required></textarea>
+      <mat-error
+        *ngIf="myForm.get('Mota')!.invalid && myForm.get('Mota')!.touched"
+        >Vui lòng nhập mô tả công việc !!</mat-error
+      >
+    </mat-form-field>
+
+  </div>
+</form> -->
+<!-- <div class="row m-3"> -->
+<!-- <div class="col-md-12 mt-2 mb-2">
+    <button
+      class="btn btn-success float-right ml-2"
+      *ngIf="!isEditMode"
+      (click)="themCongViec(Mota)"
+    >
+      {{ "add" | translate }}
+    </button>
+
+    <button
+      class="btn btn-success float-right ml-2"
+      *ngIf="isEditMode"
+      (click)="suaCongViec(id,Mota)"
+    >
+      {{ "edit" | translate }}
+    </button>
+    <button class="btn btn-primary float-right" (click)="refreshForm()">
+      {{ "refresh" | translate }}
+    </button>
+    <button class="btn btn-danger mr-2 float-right" (click)="closedialog()">
+      {{ "close" | translate }}
+    </button>
+  </div> -->
+<div class="horizontal-table p-3">
+  <h4 class="text-center mt-3"><b>PHIẾU ĐÁNH GIÁ KẾT QUẢ THỰC TẬP</b></h4>
+  <h5 class="text-center">
+    <b>(Dùng cho cán bộ hướng dẫn thực tập tại cơ quan)</b>
+  </h5>
+  <p>
+    Họ và tên cán bộ hướng dẫn thực tập: {{ data.danhgia.canBoHuongDan.tenCB }}
+  </p>
+  <p>
+    Điện thoại: {{ data.danhgia.canBoHuongDan.sdtCB }}
+    <span style="padding-left: 200px"
+      >Email: {{ data.danhgia.canBoHuongDan.account.email }}</span
+    >
+  </p>
+  <p>Đơn vị thực tập: {{ data.danhgia.donViThucTap.tenDvtt }}</p>
+  <p>
+    Họ và tên sinh viên thực tập: <b>{{ data.danhgia.sinhVien.tenSV }}</b>
+    <span style="padding-left: 200px"
+      >Mã SV: {{ data.danhgia.sinhVien.maSV }}</span
+    >
+  </p>
+  <p>
+    Thời gian thực tập: Từ ngày {{ data.danhgia.dotThucTap.thoiGianBatDau }} Đến
+    ngày: {{ data.danhgia.dotThucTap.thoiGianKetThuc }}
+  </p>
+  <form [formGroup]="myForm">
+    <table>
+      <thead>
+        <tr>
+          <th class="text-center w-75">Nội dung đánh giá</th>
+          <th class="float-right">Điểm (từ 1 - 10)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container
+          *ngFor="let bieuMau of listBieuMau | filter; let i = index"
+        >
+          <tr class="group-row">
+            <td colspan="2">{{ i + 1 }}. {{ bieuMau.mucDG.tenMuc }}</td>
+          </tr>
+          <tr
+            *ngFor="
+              let item of listBieuMau | filterByMuc : bieuMau.mucDG.tenMuc;
+              let j = index
+            "
+          >
+            <td style="padding-left: 50px">
+              {{ i + 1 }}.{{ j + 1 }} {{ item.noiDungPD }}
+            </td>
+            <td>
+              <mat-form-field class="float-right w-75">
+                <input
+                  matInput
+                  [formControlName]="'diem' + item.maPDCB"
+                  (ngModelChange)="tinhTongDiem()"
+                  type="number"
+                  step="0.1"
+                  min="0.1"
+                  max="10"
+                  required
+                />
+                <mat-error
+                  *ngIf="
+                    myForm.get('diem' + item.maPDCB)!.hasError('required') &&
+                    myForm.get('diem' + item.maPDCB)!.touched &&
+                    myForm.get('diem' + item.maPDCB)!.invalid
+                  "
+                >
+                  Vui lòng nhập điểm !!!
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    myForm.get('diem' + item.maPDCB)!.hasError('min') &&
+                    myForm.get('diem' + item.maPDCB)!.touched
+                  "
+                >
+                  Điểm > 0 !!!
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    myForm.get('diem' + item.maPDCB)!.hasError('max') &&
+                    myForm.get('diem' + item.maPDCB)!.touched
+                  "
+                >
+                  Điểm =< 10 !!!
+                </mat-error>
+              </mat-form-field>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+      <tbody>
+        <th class="text-center w-75">Cộng</th>
+        <td>
+          <input class="float-right w-75 text-center" type="text" [value]="tongDiem" readonly>
+        </td>
+      </tbody>
+    </table>
+  </form>
+  <div class="text-center mt-4" style="font-size: small;">
+    <i
+    >Kết thúc đợt thực tập, kính nhờ quí cơ quan để phiếu này và phiếu đánh giá
+    vào phong bì, dán niêm phong và giao cho sinh viên . GV sẽ căn cứ vào đánh
+    giá này và quyển báo cáo để chấm điểm cho SV
+  </i>
+  </div>
+</div>
+<div class="footer-from">
+  <button class="btn btn-primary float-right mt-2 mr-2" (click)="submitDiem()">
+    Thực hiện
+  </button>
+</div>
+
+<!-- </div> -->

@@ -72,7 +72,16 @@ import { TagModule } from 'primeng/tag';
 import { NgParticlesModule } from 'ng-particles';
 import { DialogDuyetcongviecComponent } from './canbo/dialog/dialog-duyetcongviec/dialog-duyetcongviec.component';
 import { DialogXoaDanhgiaComponent } from './canbo/dialog/dialog-xoa-danhgia/dialog-xoa-danhgia.component';
-import { DanhsachSinhvienComponent } from './canbo/danhsach-sinhvien/danhsach-sinhvien.component';
+import { ChamdiemSinhvienComponent } from './canbo/chamdiem-sinhvien/chamdiem-sinhvien.component';
+import { DialogChamdiemComponent } from './canbo/dialog/dialog-chamdiem/dialog-chamdiem.component';
+import { FilterByMucPipePipe } from './filter-by-muc-pipe.pipe';
+import { FilterPipe } from './filter.pipe';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { DialogSuadiemComponent } from './canbo/dialog/dialog-suadiem/dialog-suadiem.component';
+import { FilterByMuc2Pipe } from './filter-by-muc2.pipe';
+import { Filter2Pipe } from './filter2.pipe';
+import { OrganizationChartModule } from 'primeng/organizationchart';
+import { PageUnitComponent } from './donvi/page-unit/page-unit.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -107,7 +116,15 @@ import { DanhsachSinhvienComponent } from './canbo/danhsach-sinhvien/danhsach-si
     DialogCongviecComponent,
     DialogDuyetcongviecComponent,
     DialogXoaDanhgiaComponent,
-    DanhsachSinhvienComponent,
+    ChamdiemSinhvienComponent,
+    DialogChamdiemComponent,
+    FilterByMucPipePipe,
+    FilterPipe,
+    DialogSuadiemComponent,
+    FilterByMuc2Pipe,
+    Filter2Pipe,
+    PageUnitComponent,
+
   ],
   imports: [
     TranslateModule.forRoot({
@@ -150,6 +167,8 @@ import { DanhsachSinhvienComponent } from './canbo/danhsach-sinhvien/danhsach-si
     KnobModule,
     TagModule,
     NgParticlesModule,
+    MatSnackBarModule,
+    OrganizationChartModule,
     ToastrModule.forRoot({
       timeOut: 1500, // Thiết lập thời gian tồn tại là 1,5 giây
       progressBar: true, // Hiển thị thanh tiến trình

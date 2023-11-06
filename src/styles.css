@@ -2,5 +2,33 @@
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+/* Thanh cuộn cho toàn bộ ứng dụng */
+body {
+  overflow: auto; /* Bật thanh cuộn khi nội dung vượt ra ngoài khu vực hiển thị */
+}
+
+/* Tùy chỉnh kiểu thanh cuộn (tuỳ chọn) */
+::-webkit-scrollbar {
+  width: 5px; /* Chiều rộng thanh cuộn */
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(1, 80, 18); /* Màu của ngón tay cuộn */
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(0, 122, 27); /* Màu của ngón tay cuộn khi di chuột qua */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Màu nền của thanh cuộn */
+}

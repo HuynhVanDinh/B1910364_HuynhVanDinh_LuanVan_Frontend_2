@@ -79,73 +79,80 @@ export class HomeComponent implements OnInit {
   menuItems = [
     {
       label: 'Trang chủ',
-      imageIcon: '/assets/imgs/home.png',
-      link: '/unit',
+      icon: 'home',
+      link: '/canbo',
       externalRedirect: true,
       // hrefTargetType: '_blank',
     },
+    // {
+    //   label: 'trang chủ',
+    //   faIcon: 'fab fa-accusoft',
+    //   items: [
+    //     {
+    //       label: 'Item 1.1',
+    //       imageIcon: '/assets/imgs/danhmuc.png',
+    //       link: '/unit/ql-sinhvienthuctap',
+    //       // faIcon: 'fab fa-accusoft',
+    //       externalRedirect: true,
+    //     },
+    //     {
+    //       label: 'Item 1.2',
+    //       faIcon: 'fab fa-accessible-icon',
+    //       items: [
+    //         {
+    //           label: 'Item 1.2.1',
+    //           link: '/item-1-2-1',
+    //           faIcon: 'fas fa-allergies',
+    //         },
+    //         {
+    //           label: 'Item 1.2.2',
+    //           faIcon: 'fas fa-ambulance',
+    //           items: [
+    //             {
+    //               label: 'Item 1.2.2.1',
+    //               link: 'item-1-2-2-1',
+    //               faIcon: 'fas fa-anchor',
+    //             },
+    //           ],
+    //         },
+    //       ],
+    //     },
+    //   ],
+    // },
+    // {
+    //   label: 'Item 2',
+    //   icon: 'alarm',
+    //   items: [
+    //     {
+    //       label: 'Item 2.1',
+    //       link: '/item-2-1',
+    //       icon: 'favorite',
+    //     },
+    //     {
+    //       label: 'Item 2.2',
+    //       link: '/item-2-2',
+    //       icon: 'favorite_border',
+    //     },
+    //   ],
+    // },
     {
-      label: 'trang chủ',
-      faIcon: 'fab fa-accusoft',
-      items: [
-        {
-          label: 'Item 1.1',
-          imageIcon: '/assets/imgs/danhmuc.png',
-          link: '/unit/ql-sinhvienthuctap',
-          // faIcon: 'fab fa-accusoft',
-          externalRedirect: true,
-        },
-        {
-          label: 'Item 1.2',
-          faIcon: 'fab fa-accessible-icon',
-          items: [
-            {
-              label: 'Item 1.2.1',
-              link: '/item-1-2-1',
-              faIcon: 'fas fa-allergies',
-            },
-            {
-              label: 'Item 1.2.2',
-              faIcon: 'fas fa-ambulance',
-              items: [
-                {
-                  label: 'Item 1.2.2.1',
-                  link: 'item-1-2-2-1',
-                  faIcon: 'fas fa-anchor',
-                },
-              ],
-            },
-          ],
-        },
-      ],
+      label: 'Danh sách sinh viên',
+      link: '/canbo/chamdiem-sinhvien',
+      icon: 'school',
+      externalRedirect: true,
     },
     {
-      label: 'Item 2',
-      icon: 'alarm',
-      items: [
-        {
-          label: 'Item 2.1',
-          link: '/item-2-1',
-          icon: 'favorite',
-        },
-        {
-          label: 'Item 2.2',
-          link: '/item-2-2',
-          icon: 'favorite_border',
-        },
-      ],
+      label: 'Phân công công việc',
+      link: '/canbo/phancong-congviec',
+      icon: 'assignment_turned_in',
+      externalRedirect: true,
     },
-    {
-      label: 'Item 3',
-      link: '/item-3',
-      icon: 'offline_pin',
-    },
-    {
-      label: 'Item 4',
-      link: '/item-4',
-      icon: 'star_rate',
-      hidden: true,
-    },
+    // {
+    //   label: 'Item 4',
+    //   link: '/item-4',
+    //   icon: 'star_rate',
+    //   hidden: true,
+    // },
   ];
   config = {
     paddingAtStart: true,
