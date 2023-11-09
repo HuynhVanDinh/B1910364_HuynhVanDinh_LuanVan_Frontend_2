@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { BaidangService } from 'src/app/baidang.service';
 import { OpenwarningComponent } from 'src/app/openwarning/openwarning.component';
 import { DialogbaidangComponent } from '../dialog/dialogbaidang/dialogbaidang.component';
+import { DonviService } from 'src/app/donvi.service';
 
 @Component({
   selector: 'app-baidang',
@@ -21,6 +22,7 @@ export class BaidangComponent {
   pageSize = 5; // Số mục trên mỗi trang
   pageSizeOptions: number[] = [5, 10, 25, 50]; // Các tùy chọn số mục trên trang
   pageIndex = 0;
+  baiDangArray!: any[];
 
   constructor(
     // private pdfService: PdfService,
@@ -28,6 +30,7 @@ export class BaidangComponent {
     // private excelService: ExcelService,
     private translate: TranslateService,
     private baidangService: BaidangService,
+      private donviService: DonviService,
     private dialog: MatDialog
   ) {
     translate.setDefaultLang('vn');
@@ -38,21 +41,46 @@ export class BaidangComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   ngOnInit() {
-    this.getAll();
+    this.getBaiDangByDonVi();
   }
 
-  getAll() {
-    this.baidangService
-      .getAllBaiDang()
-      .subscribe({
-        next: (res) => {
+  // getAll() {
+  //   this.baidangService
+  //     .getAllBaiDang()
+  //     .subscribe({
+  //       next: (res) => {
+  //         console.log(res);
+  //         // Khởi tạo MatTableDataSource và thiết lập paginator
+  //         this.dataSource = new MatTableDataSource(res);
+  //         this.dataSource.paginator = this.paginator;
+  //         this.dataSource.sort = this.sort;
+  //       },
+  //     });
+  // }
+  getBaiDangByDonVi(){
+     const accountid = localStorage.getItem('accountid');
+    if (accountid) {
+      this.donviService.getDonvi(accountid).subscribe((data) => {
+        this.baidangService.getBaiDangByDonVi(data.maDvtt).subscribe((res)=>{
           console.log(res);
-          // Khởi tạo MatTableDataSource và thiết lập paginator
-          this.dataSource = new MatTableDataSource(res);
+          this.baiDangArray = [res];
+          console.log(this.baiDangArray)
+          this.dataSource = new MatTableDataSource(this.baiDangArray);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
         },
+        (error)=>{
+          console.log("lỗi nè:", error)
+        })
+        // console.log(data)
+        // this.canBoService
+        //   .getCanBoByDonViThucTap(data.maDvtt)
+        //   .subscribe((canBoData) => {
+        //     this.canBoList = canBoData;
+        //     console.log(canBoData);
+        //   });
       });
+    }
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -98,7 +126,7 @@ export class BaidangComponent {
       data: {
         isEdit: this.isEdit,
         baidang: data,
-        baiDangComponent: this,
+        BaiDangComponent: this,
       },
       disableClose: true,
     });

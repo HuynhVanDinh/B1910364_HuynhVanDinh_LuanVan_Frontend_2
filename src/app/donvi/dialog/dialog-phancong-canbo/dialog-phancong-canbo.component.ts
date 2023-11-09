@@ -1,5 +1,11 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
+import { data } from 'jquery';
+import { ToastrService } from 'ngx-toastr';
 import { DonviService } from 'src/app/donvi.service';
 import { KetQua } from 'src/app/model/ketqua.model';
 import { TargetList } from 'src/app/model/targetList.model';
@@ -14,7 +20,7 @@ export class DialogPhancongCanboComponent implements OnInit {
   sourceList: string[] = [];
   targetList: KetQua[] = [];
   searchText: string = '';
-
+  isLoading: boolean = false;
   ngOnInit() {
     this.getAllSinhVien();
     this.targetList = [];
@@ -23,6 +29,8 @@ export class DialogPhancongCanboComponent implements OnInit {
   constructor(
     private cdr: ChangeDetectorRef,
     private donviService: DonviService,
+    private toastr: ToastrService,
+    private dialog: MatDialog,
     public dialogRef: MatDialogRef<DialogPhancongCanboComponent>,
     private sinhvienThuctapService: SinhvienThuctapService,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -47,6 +55,7 @@ export class DialogPhancongCanboComponent implements OnInit {
       });
     }
   }
+  PhancongCanboComponent = this.data.PhancongCanboComponent;
   onSubmit() {
     // Xử lý logic khi người dùng nhấn nút "Gửi"
     console.log('Danh sách đích:', this.targetList);
@@ -54,14 +63,23 @@ export class DialogPhancongCanboComponent implements OnInit {
     const maCbList = this.data.canbo.maCB;
     console.log('maKqtt', maKqtt);
     console.log('maCb', maCbList);
+    this.isLoading = true;
     this.sinhvienThuctapService
       .updateMultipleKetQuaThucTap(maKqtt, maCbList)
       .subscribe(
         (updatedKetQuaThucTaps) => {
-          console.log('Cập nhật thành công:', updatedKetQuaThucTaps);
+          this.dialog.closeAll();
+          this.isLoading = false;
+          this.toastr.success('Phân công thành công');
+          console.log('Phân công thành công', updatedKetQuaThucTaps);
+          this.PhancongCanboComponent.getAllSinhVien();
+          // console.log('Cập nhật thành công:', updatedKetQuaThucTaps);
         },
         (error) => {
-          console.error('Lỗi cập nhật:', error);
+          this.dialogRef.close('Closed using function');
+          this.isLoading = false;
+          this.toastr.error('Lỗi sửa Phân công');
+          console.error('Lỗi Phân công:', error);
         }
       );
     // console.log('mã nè',maKqtt)

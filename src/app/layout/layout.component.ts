@@ -2,40 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-// import {
-//   MatTreeFlatDataSource,
-//   MatTreeFlattener,
-// } from '@angular/material/tree';
-// import { FlatTreeControl } from '@angular/cdk/tree';
-// interface FoodNode {
-//   name: string;
-//   children?: FoodNode[];
-// }
-
-// const TREE_DATA: FoodNode[] = [
-//   {
-//     name: 'Fruit',
-//     children: [{ name: 'Apple' }, { name: 'Banana' }, { name: 'Fruit loops' }],
-//   },
-//   {
-//     name: 'Vegetables',
-//     children: [
-//       {
-//         name: 'Green',
-//         children: [{ name: 'Broccoli' }, { name: 'Brussels sprouts' }],
-//       },
-//       {
-//         name: 'Orange',
-//         children: [{ name: 'Pumpkins' }, { name: 'Carrots' }],
-//       },
-//     ],
-//   },
-// ];
-// interface ExampleFlatNode {
-//   expandable: boolean;
-//   name: string;
-//   level: number;
-// }
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
@@ -55,27 +21,6 @@ export class LayoutComponent implements OnInit {
   ) {
     translate.setDefaultLang('vn');
   }
-
-  // treeControl = new FlatTreeControl<ExampleFlatNode>(
-  //   (node) => node.level,
-  //   (node) => node.expandable
-  // );
-  // private _transformer = (node: FoodNode, level: number) => {
-  //   return {
-  //     expandable: !!node.children && node.children.length > 0,
-  //     name: node.name,
-  //     level: level,
-  //   };
-  // };
-  // treeFlattener = new MatTreeFlattener(
-  //   this._transformer,
-  //   (node) => node.level,
-  //   (node) => node.expandable,
-  //   (node) => node.children
-  // );
-
-  // dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-
   ngOnInit(): void {
     // this.dataSource.data = TREE_DATA;
     // Lấy thông tin tài khoản đã đăng nhập từ AuthService
@@ -114,49 +59,13 @@ export class LayoutComponent implements OnInit {
       label: 'Trang chủ',
       icon: 'home',
       link: '/unit',
-      externalRedirect: true,
+      // externalRedirect: true,
       // hrefTargetType: '_blank',
     },
-    // {
-    //   label: 'trang chủ',
-    //   faIcon: 'fab fa-accusoft',
-    //   items: [
-    //     {
-    //       label: 'Item 1.1',
-    //       imageIcon: '/assets/imgs/danhmuc.png',
-    //       link: '/unit/ql-sinhvienthuctap',
-    //       // faIcon: 'fab fa-accusoft',
-    //       externalRedirect: true,
-    //     },
-    //     {
-    //       label: 'Item 1.2',
-    //       faIcon: 'fab fa-accessible-icon',
-    //       items: [
-    //         {
-    //           label: 'Item 1.2.1',
-    //           link: '/item-1-2-1',
-    //           faIcon: 'fas fa-allergies',
-    //         },
-    //         {
-    //           label: 'Item 1.2.2',
-    //           faIcon: 'fas fa-ambulance',
-    //           items: [
-    //             {
-    //               label: 'Item 1.2.2.1',
-    //               link: 'item-1-2-2-1',
-    //               faIcon: 'fas fa-anchor',
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //     },
-    //   ],
-    // },
     {
       label: 'Sinh viên thực tập',
       link: '/unit/ql-sinhvienthuctap',
       icon: 'school',
-      externalRedirect: true,
     },
     {
       label: 'Danh mục',
@@ -166,30 +75,27 @@ export class LayoutComponent implements OnInit {
           label: 'Quản lý cán bộ',
           link: '/unit/ql-canbo',
           icon: 'person',
-          externalRedirect: true,
         },
         {
           label: 'Quản lý bài đăng',
           link: '/unit/baidang',
           icon: 'post_add',
-          externalRedirect: true,
         },
       ],
     },
     {
       label: 'Phân công cán bộ',
       link: '/unit/phancong',
-      icon: 'inventory',
-      externalRedirect: true,
+      icon: 'assignment_turned_in',
     },
     {
       label: 'Hồ sơ thực tập',
       link: '/unit/hosothuctap',
       icon: 'inventory',
-      externalRedirect: true,
     },
   ];
   config = {
+    interfaceWithRoute: true,
     paddingAtStart: true,
     classname: 'my-custom-class',
     listBackgroundColor: 'rgb(0, 122, 27)',
@@ -198,4 +104,3 @@ export class LayoutComponent implements OnInit {
     selectedListFontColor: '#ff5733',
   };
 }
-

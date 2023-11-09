@@ -81,80 +81,23 @@ export class HomeComponent implements OnInit {
       label: 'Trang chủ',
       icon: 'home',
       link: '/canbo',
-      externalRedirect: true,
+      // externalRedirect: true,
       // hrefTargetType: '_blank',
     },
-    // {
-    //   label: 'trang chủ',
-    //   faIcon: 'fab fa-accusoft',
-    //   items: [
-    //     {
-    //       label: 'Item 1.1',
-    //       imageIcon: '/assets/imgs/danhmuc.png',
-    //       link: '/unit/ql-sinhvienthuctap',
-    //       // faIcon: 'fab fa-accusoft',
-    //       externalRedirect: true,
-    //     },
-    //     {
-    //       label: 'Item 1.2',
-    //       faIcon: 'fab fa-accessible-icon',
-    //       items: [
-    //         {
-    //           label: 'Item 1.2.1',
-    //           link: '/item-1-2-1',
-    //           faIcon: 'fas fa-allergies',
-    //         },
-    //         {
-    //           label: 'Item 1.2.2',
-    //           faIcon: 'fas fa-ambulance',
-    //           items: [
-    //             {
-    //               label: 'Item 1.2.2.1',
-    //               link: 'item-1-2-2-1',
-    //               faIcon: 'fas fa-anchor',
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //     },
-    //   ],
-    // },
-    // {
-    //   label: 'Item 2',
-    //   icon: 'alarm',
-    //   items: [
-    //     {
-    //       label: 'Item 2.1',
-    //       link: '/item-2-1',
-    //       icon: 'favorite',
-    //     },
-    //     {
-    //       label: 'Item 2.2',
-    //       link: '/item-2-2',
-    //       icon: 'favorite_border',
-    //     },
-    //   ],
-    // },
+
     {
       label: 'Danh sách sinh viên',
       link: '/canbo/chamdiem-sinhvien',
       icon: 'school',
-      externalRedirect: true,
     },
     {
       label: 'Phân công công việc',
       link: '/canbo/phancong-congviec',
       icon: 'assignment_turned_in',
-      externalRedirect: true,
     },
-    // {
-    //   label: 'Item 4',
-    //   link: '/item-4',
-    //   icon: 'star_rate',
-    //   hidden: true,
-    // },
   ];
   config = {
+    interfaceWithRoute: true,
     paddingAtStart: true,
     classname: 'my-custom-class',
     listBackgroundColor: 'rgb(0, 122, 27)',

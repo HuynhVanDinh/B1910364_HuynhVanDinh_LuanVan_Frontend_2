@@ -47,10 +47,11 @@ export class DialogbaidangComponent implements OnInit, OnDestroy {
     });
     if (this.data.isEdit) {
       this.isEditMode = true;
-      // console.log(this.data);
-      this.id = this.data.khoa.khoaId;
-      this.khoaName = this.data.khoa.khoaName;
-      this.khoaSdt = this.data.khoa.khoaSdt;
+      console.log(this.data);
+      this.id = this.data.baidang.maBD;
+      this.text = this.data.baidang.noiDung;
+      this.soluong = this.data.baidang.soLuong;
+      this.trocap = this.data.baidang.troCap;
     } else {
       this.isEditMode = false;
     }
@@ -91,9 +92,10 @@ export class DialogbaidangComponent implements OnInit, OnDestroy {
   // }
   refreshForm() {
     if (this.data.isEdit) {
-      this.id = this.data.khoa.khoaId;
-      this.khoaName = this.data.khoa.khoaName;
-      this.khoaSdt = this.data.khoa.khoaSdt;
+      this.id = this.data.baidang.maBD;
+      this.text = this.data.baidang.noiDung;
+      this.soluong = this.data.baidang.soLuong;
+      this.trocap = this.data.baidang.troCap;
     } else {
       this.myForm.reset();
       this.myForm.markAsUntouched();
@@ -101,7 +103,7 @@ export class DialogbaidangComponent implements OnInit, OnDestroy {
     }
   }
   BaiDangComponent = this.data.BaiDangComponent;
-  themKhoa(text: string, soluong: string, trocap: number | null): void {
+  themBaidang(text: string, soluong: string, trocap: number | null): void {
     if (this.myForm.invalid) {
       this.myForm.markAllAsTouched();
       return;
@@ -121,23 +123,25 @@ export class DialogbaidangComponent implements OnInit, OnDestroy {
     }
     this.isLoading = true;
     console.log(madv);
-    this.baidangService.thembaidang(text, soluong, trocap, madv, authToken).subscribe(
-      () => {
-        this.dialog.closeAll();
-        this.isLoading = false;
-        this.toastr.success('Thêm thành công');
-        console.log('Thêm bài đăng thành công');
-        this.BaiDangComponent.getAll();
-      },
-      (error: any) => {
-        this.dialogRef.close('Closed using function');
-        this.isLoading = false;
-        this.toastr.error('Lỗi thêm bài đăng');
-        console.error('Lỗi thêm bài đăng:', error);
-      }
-    );
+    this.baidangService
+      .thembaidang(text, soluong, trocap, madv, authToken)
+      .subscribe(
+        () => {
+          this.dialog.closeAll();
+          this.isLoading = false;
+          this.toastr.success('Thêm thành công');
+          console.log('Thêm bài đăng thành công');
+          this.BaiDangComponent.getBaiDangByDonVi();
+        },
+        (error: any) => {
+          this.dialogRef.close('Closed using function');
+          this.isLoading = false;
+          this.toastr.error('Lỗi thêm bài đăng');
+          console.error('Lỗi thêm bài đăng:', error);
+        }
+      );
   }
-  suaKhoa(
+  suaBaidang(
     id: number,
     text: string,
     soluong: string,
@@ -149,32 +153,30 @@ export class DialogbaidangComponent implements OnInit, OnDestroy {
     }
     this.dialogRef.close('Closed using function');
 
-    // if (this.selectedFile) {
-    //   this.fileUploadService.uploadFile(this.selectedFile).subscribe(
-    //     (data) => {
-    //       image = data.filename;
     const authToken = localStorage.getItem('authToken');
+    const madv = localStorage.getItem('accountid');
     if (!authToken) {
-      // console.log(authToken);
       console.error('Access token not found. User is not authenticated.');
       return;
     }
     this.isLoading = true;
-    // this.khoaService.suakhoa(id, name, code, authToken).subscribe(
-    //   () => {
-    //     this.dialog.closeAll();
-    //     this.isLoading = false;
-    //     this.toastr.success('Sửa thành công');
-    //     console.log('Sửa bài đăng thành công');
-    //     this.KhoaComponent.getAll();
-    //   },
-    //   (error: any) => {
-    //     this.dialogRef.close('Closed using function');
-    //     this.isLoading = false;
-    //     this.toastr.error('Lỗi sửa bài đăng');
-    //     console.error('Lỗi sửa bài đăng:', error);
-    //   }
-    // );
+    this.baidangService
+      .subaidang(id, text, soluong, trocap, madv, authToken)
+      .subscribe(
+        () => {
+          this.dialog.closeAll();
+          this.isLoading = false;
+          this.toastr.success('Sửa thành công');
+          console.log('Sửa bài đăng thành công');
+          this.BaiDangComponent.getBaiDangByDonVi();
+        },
+        (error: any) => {
+          this.dialogRef.close('Closed using function');
+          this.isLoading = false;
+          this.toastr.error('Lỗi sửa bài đăng');
+          console.error('Lỗi sửa bài đăng:', error);
+        }
+      );
   }
   closedialog() {
     this.dialogRef.close('Closed using function');
