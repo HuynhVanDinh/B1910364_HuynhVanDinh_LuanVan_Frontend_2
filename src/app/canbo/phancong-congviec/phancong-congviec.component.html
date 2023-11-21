@@ -3,11 +3,12 @@
     <div class="col-md-10">
       <h2 class="text-success m-0">Phân công công việc</h2>
       <!-- <h2 class="text-success m-0">{{ "Mgtype" | translate }}</h2> -->
-      <p>Danh mục > Phân công công việc</p>
+      <p>Phân công công việc</p>
       <!-- <p>{{ "path" | translate }}</p> -->
     </div>
     <div class="col-md-2 mt-3">
       <button
+        *ngIf="tuans.length != 0"
         [disabled]="tuans.length >= 8"
         class="ml-3 bg-success text-white"
         mat-raised-button
@@ -25,7 +26,10 @@
     <mat-tab *ngFor="let tuan of tuans">
       <ng-template mat-tab-label>
         {{ tuan.ten_tuan }} <br />
-        ({{ tuan.batdau }}) - ({{ tuan.hethan }})<mat-icon (click)="openDialogSua(tuan)">edit</mat-icon>
+        ({{ tuan.batdau }}) - ({{ tuan.hethan }})<mat-icon
+          (click)="openDialogSua(tuan)"
+          >edit</mat-icon
+        >
         <!-- Hiển thị tên của tuần làm tiêu đề của tab -->
       </ng-template>
       <app-congviec-sinhvien [tuan]="tuan"></app-congviec-sinhvien>
@@ -48,4 +52,3 @@
     <!-- {{ "add" | translate }} -->
   </button>
 </div>
-

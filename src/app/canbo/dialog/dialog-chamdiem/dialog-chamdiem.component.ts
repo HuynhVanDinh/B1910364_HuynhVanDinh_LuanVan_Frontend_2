@@ -78,10 +78,10 @@ export class DialogChamdiemComponent {
 
     this.isEdit = data.isEdit;
   }
-  getDiemCanBo(){
-    this.diemCanBoService.getAll().subscribe((res)=>{
-      console.log("hfuskjhghskghsfjkgfkufdjkghdgdhjk",res);
-    })
+  getDiemCanBo() {
+    this.diemCanBoService.getAll().subscribe((res) => {
+      console.log('hfuskjhghskghsfjkgfkufdjkghdgdhjk', res);
+    });
   }
   tinhTongDiem() {
     this.tongDiem = 0;
@@ -116,7 +116,7 @@ export class DialogChamdiemComponent {
       }
     });
   }
-
+  ChamDiemComponent = this.data.ChamDiemComponent;
   submitDiem() {
     if (this.myForm.valid) {
       const maPDCBValues = [];
@@ -130,39 +130,40 @@ export class DialogChamdiemComponent {
             console.error('Access token not found. User is not authenticated.');
             return;
           }
-           const accountid = localStorage.getItem('accountid');
-           this.isLoading = true;
-           if (accountid) {
-             this.canboService.getMaCB(accountid).subscribe((data) => {
-               this.diemCanBoService
-                 .createDiemCanBo(control.value,
-            item.maPDCB,
-            this.data.danhgia.sinhVien.maSV, data.maCB, authToken)
-                 .subscribe(
-                   () => {
-                     this.dialog.closeAll();
-                     this.isLoading = false;
-                     this.toastr.success('Chấm điểm thành công');
-                     this.snackBar.open(
-                       'Chấm điểm thành công',
-                       'Đóng',
-                       {
-                         duration: 3000,
-                       }
-                     );
-                     console.log('Chấm điểm thành công');
+          const accountid = localStorage.getItem('accountid');
+          this.isLoading = true;
+          if (accountid) {
+            this.canboService.getMaCB(accountid).subscribe((data) => {
+              this.diemCanBoService
+                .createDiemCanBo(
+                  control.value,
+                  item.maPDCB,
+                  this.data.danhgia.sinhVien.maSV,
+                  data.maCB,
+                  authToken
+                )
+                .subscribe(
+                  () => {
+                    this.dialog.closeAll();
+                    this.isLoading = false;
+                    this.toastr.success('Chấm điểm thành công');
+                    this.snackBar.open('Chấm điểm thành công', 'Đóng', {
+                      duration: 3000,
+                    });
+                    this.ChamDiemComponent.getAllSinhVien();
+                    console.log('Chấm điểm thành công');
                     //  this.refreshService.triggerRefresh();
-                     // this.TuanComponent.getTuanCanBo();
-                   },
-                   (error: any) => {
-                     this.dialogRef.close('Closed using function');
-                     this.isLoading = false;
-                     this.toastr.error('Lỗi chấm điểm');
-                     console.error('Lỗi chấm điểm:', error);
-                   }
-                 );
-             });
-           }
+                    // this.TuanComponent.getTuanCanBo();
+                  },
+                  (error: any) => {
+                    this.dialogRef.close('Closed using function');
+                    this.isLoading = false;
+                    this.toastr.error('Lỗi chấm điểm');
+                    console.error('Lỗi chấm điểm:', error);
+                  }
+                );
+            });
+          }
           maPDCBValues.push({
             maPDCB: item.maPDCB,
             value: control.value,

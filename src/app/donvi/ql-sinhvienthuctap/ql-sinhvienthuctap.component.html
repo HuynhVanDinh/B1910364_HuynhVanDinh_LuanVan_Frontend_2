@@ -4,7 +4,7 @@
     <div class="col-md-10">
       <h2 class="text-success m-0">Quản trị hồ sơ sinh viên thực tập</h2>
       <!-- <h2 class="text-success m-0">{{ "Mgtype" | translate }}</h2> -->
-      <p>Danh mục > Hồ sơ sinh viên thực tập</p>
+      <p>Sinh viên thực tập</p>
       <!-- <p>{{ "path" | translate }}</p> -->
     </div>
     <div class="col-md-2 mt-3">
@@ -131,7 +131,10 @@
             "
             alt="File Image"
           />
-          <button class="download" (click)="downloadFile(element.sinhVien.hinhAnh)">
+          <button
+            class="download"
+            (click)="downloadFile(element.sinhVien.hinhAnh)"
+          >
             <mat-icon>download</mat-icon>
           </button>
           <!-- {{ element.sinhVien.hinhAnh }} -->
@@ -177,6 +180,19 @@
           <!-- <mat-icon (click)="exportToPdf('http://localhost:8080/file/'+element.bangDiem)">visibility</mat-icon> -->
         </td>
       </ng-container>
+      <ng-container matColumnDef="canbo">
+        <th
+          class="bg-success text-white text-center"
+          mat-header-cell
+          *matHeaderCellDef
+        >
+          Cán bộ HD
+        </th>
+        <td class="text-center" mat-cell *matCellDef="let element">
+          {{ element.canBoHuongDan.tenCB }}
+          <!-- <mat-icon (click)="exportToPdf('http://localhost:8080/file/'+element.bangDiem)">visibility</mat-icon> -->
+        </td>
+      </ng-container>
 
       <ng-container matColumnDef="trangThai">
         <th
@@ -186,16 +202,14 @@
         >
           Trạng thái
         </th>
-        <td
-          class="text-center btn-status"
-          mat-cell
-          *matCellDef="let element"
-
-        >
+        <td class="text-center btn-status" mat-cell *matCellDef="let element">
           <button
             mat-raised-button
             color="accent"
-
+            [disabled]="element.trangThai != 1"
+            (click)="
+              updateDangKyStatus(element.maKqtt, element.canBoHuongDan.maCB, 2)
+            "
           >
             Xác nhận hoàn thành
           </button>

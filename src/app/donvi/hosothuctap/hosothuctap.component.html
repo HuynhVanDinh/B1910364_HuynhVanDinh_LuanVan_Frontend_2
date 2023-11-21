@@ -4,7 +4,7 @@
     <div class="col-md-10">
       <h2 class="text-success m-0">Quản trị hồ sơ</h2>
       <!-- <h2 class="text-success m-0">{{ "Mgtype" | translate }}</h2> -->
-      <p>Danh mục > Hồ sơ thực tập</p>
+      <p>Hồ sơ thực tập</p>
       <!-- <p>{{ "path" | translate }}</p> -->
     </div>
     <div class="col-md-2 mt-3">
@@ -147,9 +147,14 @@
         >
           Bảng điểm
         </th>
-        <td class="text-center" mat-cell *matCellDef="let element" >
+        <td class="text-center" mat-cell *matCellDef="let element">
           <!-- {{ element.bangDiem }} -->
-          <mat-icon (click)="exportToPdf('http://localhost:8080/file/'+element.bangDiem)">visibility</mat-icon>
+          <mat-icon
+            (click)="
+              exportToPdf('http://localhost:8080/file/' + element.bangDiem)
+            "
+            >visibility</mat-icon
+          >
         </td>
       </ng-container>
       <ng-container matColumnDef="cv">
@@ -160,9 +165,12 @@
         >
           CV
         </th>
-        <td class="text-center" mat-cell *matCellDef="let element" >
+        <td class="text-center" mat-cell *matCellDef="let element">
           <!-- {{ element.cv }} -->
-          <mat-icon (click)="exportToPdf('http://localhost:8080/file/'+element.cv)">visibility</mat-icon>
+          <mat-icon
+            (click)="exportToPdf('http://localhost:8080/file/' + element.cv)"
+            >visibility</mat-icon
+          >
         </td>
       </ng-container>
       <ng-container matColumnDef="trangThai">
@@ -185,7 +193,6 @@
             (click)="updateDangKyStatus(element.maDK, element.baiDang.maBD, 1)"
             *ngIf="element.trangThai == 0"
           >
-
             Tiếp nhận
           </button>
           <button
@@ -197,7 +204,13 @@
           >
             Từ chối
           </button>
-          <p *ngIf="element.trangThai == 1 || element.trangThai == 2 || element.trangThai == 3">
+          <p
+            *ngIf="
+              element.trangThai == 1 ||
+              element.trangThai == 2 ||
+              element.trangThai == 3
+            "
+          >
             {{ element.trangThai | trangThai }}
           </p>
         </td>

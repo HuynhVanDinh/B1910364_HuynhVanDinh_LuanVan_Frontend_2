@@ -58,7 +58,7 @@ export class ChamdiemSinhvienComponent {
     if (accountid) {
       this.canboService.getMaCB(accountid).subscribe((data) => {
         this.sinhvienThuctapService
-          .getAllKetQuaCanBo(data.maCB)
+          .getAllKetQuaCanbo(data.maCB)
           .subscribe((dataSV) => {
             this.dataSource = new MatTableDataSource(dataSV);
             this.dataSource.paginator = this.paginator;
@@ -112,7 +112,7 @@ export class ChamdiemSinhvienComponent {
       exitAnimationDuration: '300ms',
       data: {
         danhgia: maSV,
-        CongViecComponent: this,
+        ChamDiemComponent: this,
       },
       disableClose: true,
     });

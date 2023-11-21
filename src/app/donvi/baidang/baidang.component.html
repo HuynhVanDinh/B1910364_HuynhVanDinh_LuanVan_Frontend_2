@@ -3,12 +3,12 @@
     <div class="col-md-10">
       <h2 class="text-success m-0">Quản trị thông tin bài đăng</h2>
       <!-- <h2 class="text-success m-0">{{ "Mgtype" | translate }}</h2> -->
-      <p>Danh mục > Bài đăng</p>
+      <p>Danh mục > Quản lý bài đăng</p>
       <!-- <p>{{ "path" | translate }}</p> -->
     </div>
     <div class="col-md-2 mt-3">
       <button
-         [disabled]="baiDangArray"
+        [disabled]="baiDangArray"
         class="ml-3 bg-success text-white"
         mat-raised-button
         (click)="openDialogthem()"
@@ -71,7 +71,6 @@
       <div class="col-8">
         <div>
           <h1>
-
             <b>Danh sách bài đăng</b>
             <!-- <b>{{ "Base type" | translate }}</b> -->
           </h1>
@@ -142,7 +141,7 @@
           {{ item.soLuong }}
         </td>
       </ng-container>
-        <ng-container matColumnDef="trocap">
+      <ng-container matColumnDef="trocap">
         <th
           class="bg-success text-white text-center"
           mat-header-cell
@@ -155,7 +154,7 @@
           {{ item.troCap }}
         </td>
       </ng-container>
-        <ng-container matColumnDef="ngaydang">
+      <ng-container matColumnDef="ngaydang">
         <th
           class="bg-success text-white text-center"
           mat-header-cell
@@ -168,7 +167,7 @@
           {{ item.ngayDang }}
         </td>
       </ng-container>
-        <ng-container matColumnDef="ngaysua">
+      <ng-container matColumnDef="ngaysua">
         <th
           class="bg-success text-white text-center"
           mat-header-cell
@@ -209,13 +208,31 @@
       </ng-container>
       <tr
         mat-header-row
-        *matHeaderRowDef="['position', 'code', 'noidung', 'soluong', 'trocap','ngaydang', 'ngaysua', 'delete']"
+        *matHeaderRowDef="[
+          'position',
+          'code',
+          'noidung',
+          'soluong',
+          'trocap',
+          'ngaydang',
+          'ngaysua',
+          'delete'
+        ]"
       ></tr>
       <tr
         mat-row
         *matRowDef="
           let row;
-          columns: ['position', 'code', 'noidung', 'soluong', 'trocap','ngaydang', 'ngaysua', 'delete']
+          columns: [
+            'position',
+            'code',
+            'noidung',
+            'soluong',
+            'trocap',
+            'ngaydang',
+            'ngaysua',
+            'delete'
+          ]
         "
       ></tr>
     </table>

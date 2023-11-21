@@ -65,6 +65,25 @@
           >Vui lòng nhập thời gian kết thúc !!</mat-error
         >
       </mat-form-field>
+            <mat-form-field class="w-100">
+        <mat-label>Số buổi</mat-label>
+        <mat-select formControlName="soBuoi">
+          <mat-option
+            *ngFor="let buoi of danhSachBuoi"
+            [value]="buoi.buoiId"
+          >
+            {{ buoi.tenbuoi }}
+          </mat-option>
+        </mat-select>
+
+        <mat-error
+          *ngIf="
+            myForm.get('soBuoi')!.invalid && myForm.get('soBuoi')!.touched
+          "
+        >
+          Vui lòng nhập số buổi !!
+        </mat-error>
+      </mat-form-field>
   </div>
 </form>
 <div class="row m-3">
@@ -72,7 +91,7 @@
     <button
       class="btn btn-success float-right ml-2"
       *ngIf="!isEditMode"
-      (click)="themTuan( thoiGianBatDau, thoiGianKetThuc)"
+      (click)="themTuan( thoiGianBatDau, thoiGianKetThuc, soBuoi)"
     >
       {{ "add" | translate }}
     </button>
@@ -80,7 +99,7 @@
     <button
       class="btn btn-success float-right ml-2"
       *ngIf="isEditMode"
-      (click)="suaTuan(id, thoiGianBatDau, thoiGianKetThuc)"
+      (click)="suaTuan(id, thoiGianBatDau, thoiGianKetThuc, soBuoi)"
     >
       {{ "edit" | translate }}
     </button>

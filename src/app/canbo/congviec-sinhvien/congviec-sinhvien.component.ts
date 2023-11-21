@@ -29,7 +29,7 @@ export class CongviecSinhvienComponent implements OnInit {
     if (accountid) {
       this.canboService.getMaCB(accountid).subscribe((data) => {
         this.sinhvienThuctapService
-          .getAllKetQuaCanBo(data.maCB)
+          .getAllKetQuaCanBo(data.maCB,0)
           .subscribe((dataSV) => {
             console.log('fdsgsgaf', dataSV);
             this.sinhVienList = dataSV;

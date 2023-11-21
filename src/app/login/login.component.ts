@@ -19,6 +19,7 @@ import { loadSlim } from 'tsparticles-slim';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
+  isLoading: boolean = false;
   id = 'tsparticles';
 
   particlesOptions = {
@@ -131,6 +132,7 @@ export class LoginComponent {
   //   );
   // }
   login() {
+    this.isLoading = true;
     this.authService.login(this.username, this.password).subscribe(
       (data) => {
         console.log('Login successful:', data);
@@ -154,10 +156,12 @@ export class LoginComponent {
           default:
             this.showError = true;
         }
+         this.isLoading = false;
       },
       (error) => {
         console.log('Login error:', error);
         this.showError = true;
+        this.isLoading = false;
       }
     );
   }

@@ -37,7 +37,6 @@ export class DialogSuadiemComponent {
   ngOnInit(): void {
     console.log(this.data);
     this.getDiemCanBoBySinhVien();
-
   }
 
   constructor(
@@ -74,9 +73,9 @@ export class DialogSuadiemComponent {
 
         // Sử dụng một vòng lặp để thêm các FormControl động vào FormGroup
         for (let j = 0; j < this.listBieuMau.length; j++) {
-          // console.log(this.listBieuMau[j].maPDCB);
+          // console.log(`diem${this.listBieuMau[j].maDiemCB}`);
           this.myForm.addControl(
-            `diem${this.listBieuMau[j].maPDCB}`,
+            `diem${this.listBieuMau[j].maDiemCB}`,
             new FormControl(this.listBieuMau[j].diemCB, [
               Validators.required,
               Validators.min(0.1),
@@ -84,13 +83,14 @@ export class DialogSuadiemComponent {
             ])
           );
         }
+        this.tinhTongDiem();
         this.cdr.detectChanges();
       });
   }
   tinhTongDiem() {
     this.tongDiem = 0;
     for (const item of this.listBieuMau) {
-      const controlName = 'diem' + item.maPDCB;
+      const controlName = 'diem' + item.maDiemCB;
       const control = this.myForm.get(controlName);
       if (control && control.valid) {
         this.tongDiem += parseFloat(control.value);
@@ -100,10 +100,11 @@ export class DialogSuadiemComponent {
 
   submitDiem() {
     if (this.myForm.valid) {
-      const maPDCBValues = [];
+      // const maPDCBValues = [];
       for (const item of this.listBieuMau) {
-        const controlName = 'diem' + item.maPDCB;
+        const controlName = 'diem' + item.maDiemCB;
         const control = this.myForm.get(controlName);
+        console.log(controlName)
         if (control && control.valid) {
           const authToken = localStorage.getItem('authToken');
           if (!authToken) {
@@ -114,44 +115,47 @@ export class DialogSuadiemComponent {
           const accountid = localStorage.getItem('accountid');
           this.isLoading = true;
           if (accountid) {
-            this.canboService.getMaCB(accountid).subscribe((data) => {
+
+              console.log(
+
+                control.value,
+                item.maDiemCB,
+
+              );
               this.diemCanBoService
-                .createDiemCanBo(
+                .editDiemCanBo(
+                  item.maDiemCB,
                   control.value,
-                  item.maPDCB,
-                  this.data.danhgia.sinhVien.maSV,
-                  data.maCB,
+
                   authToken
                 )
                 .subscribe(
                   () => {
                     this.dialog.closeAll();
                     this.isLoading = false;
-                    this.toastr.success('Chấm điểm thành công');
-                    this.snackBar.open('Chấm điểm thành công', 'Đóng', {
+                    this.toastr.success('Sửa điểm thành công');
+                    this.snackBar.open('Sử điểm thành công', 'Đóng', {
                       duration: 3000,
                     });
-                    console.log('Chấm điểm thành công');
-                    //  this.refreshService.triggerRefresh();
-                    // this.TuanComponent.getTuanCanBo();
+                    console.log('Sửa điểm thành công');
+
                   },
                   (error: any) => {
                     this.dialogRef.close('Closed using function');
                     this.isLoading = false;
-                    this.toastr.error('Lỗi chấm điểm');
-                    console.error('Lỗi chấm điểm:', error);
+                    this.toastr.error('Lỗi sửa điểm');
+                    console.error('Lỗi sửa điểm:', error);
                   }
                 );
-            });
           }
-          maPDCBValues.push({
-            maPDCB: item.maPDCB,
-            value: control.value,
-            maSV: this.data.danhgia.sinhVien.maSV,
-          });
+          // maPDCBValues.push({
+          //   maPDCB: item.item.phieuDiemCanbo.maPDCB,
+          //   value: control.value,
+          //   maSV: this.data.danhgia.sinhVien.maSV,
+          // });
         }
       }
-      console.log('Dữ liệu', maPDCBValues);
+      // console.log('Dữ liệu', maPDCBValues);
     } else {
       this.snackBar.open(
         'Biểu mẫu không hợp lệ. Vui lòng kiểm tra lại dữ liệu.',

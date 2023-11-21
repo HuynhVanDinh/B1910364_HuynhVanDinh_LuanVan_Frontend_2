@@ -40,7 +40,7 @@ export class PhancongCanboComponent implements OnInit {
   }
   getAllSinhVien() {
     this.sinhvienThuctapService
-      .getAllKetQuaCanBo(this.canbo.maCB)
+      .getAllKetQuaCanBo(this.canbo.maCB,0)
       .subscribe((data) => {
         console.log(data);
         this.listsinhvien = data;

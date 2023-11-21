@@ -14,9 +14,13 @@ export class TuanService {
   getTuanCanBo(maCB: Number): Observable<any> {
     return this.http.get(`${this.baseUrl}/canbo/${maCB}`);
   }
+  getTuanByTrangThai(trangThai: Number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/all/${trangThai}`);
+  }
   createTuan(
     batdau: Date,
     hethan: Date,
+    soBuoi: number,
     macb: number,
     authToken: string
   ): Observable<any> {
@@ -28,6 +32,7 @@ export class TuanService {
     const body = {
       batdau: batdau,
       hethan: hethan,
+      so_buoi: soBuoi,
     };
     return this.http.post<any>(url, body, {
       params: { macb: macb.toString() },
@@ -38,9 +43,10 @@ export class TuanService {
     id: number,
     batdau: Date,
     hethan: Date,
+    soBuoi: number,
     authToken: string
   ): Observable<any> {
-    const url = `${this.baseUrl}/`+id;
+    const url = `${this.baseUrl}/` + id;
     const headers = new HttpHeaders({
       'Content-Type': 'application/json; charset=utf-8',
       Authorization: `Bearer ${authToken}`,
@@ -48,6 +54,7 @@ export class TuanService {
     const body = {
       batdau: batdau,
       hethan: hethan,
+      so_buoi: soBuoi,
     };
     return this.http.put<any>(url, body, {
       // params: { macb: macb.toString() },

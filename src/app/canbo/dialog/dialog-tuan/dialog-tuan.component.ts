@@ -19,24 +19,58 @@ export class DialogTuanComponent {
   id!: number;
   myForm!: FormGroup;
   tenDot!: string;
+  soBuoi!: number;
   thoiGianBatDau!: Date;
   thoiGianKetThuc!: Date;
   isEdit!: boolean;
   isEditMode!: boolean;
+  danhSachBuoi: any[] = [
+    {
+      buoiId: 6,
+      tenbuoi: '6 buổi',
+    },
+    {
+      buoiId: 7,
+      tenbuoi: '7 buổi',
+    },
+    {
+      buoiId: 8,
+      tenbuoi: '8 buổi',
+    },
+    {
+      buoiId: 9,
+      tenbuoi: '9 buổi',
+    },
+    {
+      buoiId: 10,
+      tenbuoi: '10 buổi',
+    },
+    {
+      buoiId: 11,
+      tenbuoi: '11 buổi',
+    },
+    {
+      buoiId: 12,
+      tenbuoi: '12 buổi',
+    },
+  ];
 
   ngOnInit(): void {
     this.myForm = new FormGroup({
       tenDot: new FormControl(),
+      soBuoi: new FormControl(),
       thoiGianBatDau: new FormControl(),
       thoiGianKetThuc: new FormControl(),
     });
 
     if (this.data.isEdit) {
-      console.log("hùdhfhj",this.data);
+      console.log('hùdhfhj', this.data);
       this.isEditMode = true;
       this.id = this.data.tuan.id_tuan;
       this.thoiGianBatDau = this.data.tuan.batdau;
       this.thoiGianKetThuc = this.data.tuan.hethan;
+       this.soBuoi = this.data.tuan.so_buoi;
+       this.myForm.get('soBuoi')?.setValue(this.data.tuan.so_buoi);
     } else {
       this.isEditMode = false;
     }
@@ -59,6 +93,8 @@ export class DialogTuanComponent {
       this.id = this.data.tuan.id_tuan;
       this.thoiGianBatDau = this.data.tuan.batdau;
       this.thoiGianKetThuc = this.data.tuan.hethan;
+      this.soBuoi = this.data.tuan.so_buoi;
+      this.myForm.get('soBuoi')?.setValue(this.data.tuan.so_buoi);
     } else {
       this.myForm.reset();
       this.myForm.markAsUntouched();
@@ -68,11 +104,13 @@ export class DialogTuanComponent {
 
   TuanComponent = this.data.TuanComponent;
 
-  themTuan(thoiGianBatDau: Date, thoiGianKetThuc: Date): void {
+  themTuan(thoiGianBatDau: Date, thoiGianKetThuc: Date, soBuoi: number): void {
     if (this.myForm.invalid) {
       this.myForm.markAllAsTouched();
       return;
     }
+     const soBuoiValue = this.myForm.get('soBuoi')!.value;
+     soBuoi = soBuoiValue;
     this.dialogRef.close('Closed using function');
     const authToken = localStorage.getItem('authToken');
     if (!authToken) {
@@ -85,7 +123,7 @@ export class DialogTuanComponent {
     if (accountid) {
       this.canboService.getMaCB(accountid).subscribe((data) => {
         this.tuanService
-          .createTuan(thoiGianBatDau, thoiGianKetThuc, data.maCB, authToken)
+          .createTuan(thoiGianBatDau, thoiGianKetThuc, soBuoi, data.maCB, authToken)
           .subscribe(
             () => {
               this.dialog.closeAll();
@@ -104,15 +142,13 @@ export class DialogTuanComponent {
       });
     }
   }
-  suaTuan(
-    id: number,
-    thoiGianBatDau: Date,
-    thoiGianKetThuc: Date
-  ): void {
+  suaTuan(id: number, thoiGianBatDau: Date, thoiGianKetThuc: Date, soBuoi: number): void {
     if (this.myForm.invalid) {
       this.myForm.markAllAsTouched();
       return;
     }
+    const soBuoiValue = this.myForm.get('soBuoi')!.value;
+    soBuoi = soBuoiValue;
     this.dialogRef.close('Closed using function');
     const authToken = localStorage.getItem('authToken');
     if (!authToken) {
@@ -121,7 +157,8 @@ export class DialogTuanComponent {
       return;
     }
     this.isLoading = true;
-    this.tuanService.editTuan(id, thoiGianBatDau, thoiGianKetThuc, authToken)
+    this.tuanService
+      .editTuan(id, thoiGianBatDau, thoiGianKetThuc, soBuoi, authToken)
       .subscribe(
         (data) => {
           console.log(data);

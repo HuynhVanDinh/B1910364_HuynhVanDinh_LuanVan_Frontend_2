@@ -9,6 +9,7 @@ import { DangkyService } from 'src/app/dangky.service';
 import { DonviService } from 'src/app/donvi.service';
 import { FileUploadService } from 'src/app/file-upload.service';
 import { SinhvienThuctapService } from 'src/app/sinhvien-thuctap.service';
+import { TuanService } from 'src/app/tuan.service';
 
 @Component({
   selector: 'app-ql-sinhvienthuctap',
@@ -29,6 +30,7 @@ export class QlSinhvienthuctapComponent {
     'hinhAnh',
     'gtinh',
     'ngsinh',
+    'canbo',
     'email',
     'trangThai',
   ];
@@ -36,6 +38,7 @@ export class QlSinhvienthuctapComponent {
   @ViewChild(MatSort) sort!: MatSort;
   dataSource = new MatTableDataSource<any>();
   constructor(
+    private tuanService: TuanService,
     private toastr: ToastrService,
     private translate: TranslateService,
     private donviService: DonviService,
@@ -60,6 +63,7 @@ export class QlSinhvienthuctapComponent {
           .getAllKetQuaThucTapDonVi(data.maDvtt)
           .subscribe((data) => {
             this.dataSource = new MatTableDataSource(data);
+            console.log(this.dataSource);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
             // this.danhSachDangKy = data;
@@ -88,31 +92,31 @@ export class QlSinhvienthuctapComponent {
     }
     return color;
   }
-  updateDangKyStatus(maDK: number, baiDangId: number, trangThaiMoi: number) {
+  updateDangKyStatus(maKqtt: number, maCB: number, trangThaiMoi: number) {
     const authToken = localStorage.getItem('authToken');
     if (!authToken) {
       // console.log(authToken);
       console.error('Access token not found. User is not authenticated.');
       return;
     }
-    // this.isLoading = true;
-    // this.dangKyService
-    //   .updateTrangThaiDangKy(maDK, baiDangId, trangThaiMoi, authToken)
-    //   .subscribe(
-    //     (response) => {
-    //       this.isLoading = false;
-    //       this.toastr.success('Tiếp nhận thành công');
-    //       this.getAllDangKy();
-    //       // Handle success
-    //       console.log('Status updated successfully:', response);
-    //     },
-    //     (error) => {
-    //       this.isLoading = false;
-    //       this.toastr.error(error.message);
-    //       // Handle error
-    //       console.error('Error updating status:', error);
-    //     }
-    //   );
+    this.isLoading = true;
+    this.sinhvienThuctapService
+      .updateTrangThaiDangKy(maKqtt, maCB, trangThaiMoi, authToken)
+      .subscribe(
+        (response) => {
+          this.isLoading = false;
+          this.toastr.success('Xác nhận thành công');
+          this.getAllDangKy();
+          // Handle success
+          console.log('Xác nhận thành công:', response);
+        },
+        (error) => {
+          this.isLoading = false;
+          this.toastr.error(error.message);
+          // Handle error
+          console.error('Lỗi xác nhận:', error);
+        }
+      );
   }
   // exportToPdf(url: string) {
 

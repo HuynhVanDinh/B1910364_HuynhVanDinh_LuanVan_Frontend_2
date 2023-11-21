@@ -51,4 +51,35 @@ export class CanboService {
       headers: headers,
     });
   }
+  editCanBo(
+    maCB: number,
+    tenCB: string,
+    gioiTinh: string,
+    ngSinh: Date,
+    sdt: string,
+    donViThucTapId: number,
+    authToken: string
+  ): Observable<any> {
+    const url = `${this.baseUrl}/${maCB}`;
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${authToken}`,
+    });
+    const body = {
+      tenCB: tenCB,
+      gioiTinh: gioiTinh,
+      // hinhAnh: hinhAnh,
+      ngSinh: ngSinh,
+      sdtCB: sdt,
+    };
+
+    return this.http.put(url, body, {
+      params: {
+        donViThucTapId: donViThucTapId,
+        // username: username,
+        // password: password,
+        // email: email,
+      },
+      headers: headers,
+    });
+  }
 }

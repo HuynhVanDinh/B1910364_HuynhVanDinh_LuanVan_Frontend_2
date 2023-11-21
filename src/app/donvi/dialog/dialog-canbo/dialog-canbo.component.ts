@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   Inject,
+  NgZone,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -29,7 +30,7 @@ import { ImgClientService } from 'src/app/img-client.service';
   styleUrls: ['./dialog-canbo.component.css'],
 })
 export class DialogCanboComponent implements OnInit, AfterViewChecked {
-  maSV!: number;
+  maCB!: number;
   sdt!: string;
   date: Date[] | undefined;
   username!: string;
@@ -60,12 +61,13 @@ export class DialogCanboComponent implements OnInit, AfterViewChecked {
         gender: new FormControl(),
       }));
     if (this.data.isEdit) {
+      console.log('hihi', this.data);
       this.isEditMode = true;
-      this.maSV = this.data.sinhvien.maSV;
-      this.tenCB = this.data.sinhvien.tenCB;
-      this.ngaysinh = this.data.sinhvien.ngaySinh;
-      this.sdt = this.data.sinhvien.account.sdt;
-      this.gender = this.data.sinhvien.gioiTinh;
+      this.maCB = this.data.canbo.maCB;
+      this.tenCB = this.data.canbo.tenCB;
+      this.ngaysinh = this.data.canbo.ngSinh;
+      this.sdt = this.data.canbo.sdtCB;
+      this.gender = this.data.canbo.gtinh;
     } else {
       this.isEditMode = false;
     }
@@ -77,6 +79,7 @@ export class DialogCanboComponent implements OnInit, AfterViewChecked {
     }
   }
   constructor(
+    private ngZone: NgZone,
     private formBuilder: FormBuilder,
     private fileUploadService: FileUploadService,
     private imgService: ImgClientService,
@@ -190,11 +193,11 @@ export class DialogCanboComponent implements OnInit, AfterViewChecked {
   }
 
   suaSinhVien(
-    masv: number,
-    tensv: string,
+    macb: number,
+    tencb: string,
     gt: string,
     ngaysinh: Date,
-    email: string
+    sdt: string
   ): void {
     if (this.myForm.invalid) {
       this.myForm.markAllAsTouched();
@@ -202,29 +205,38 @@ export class DialogCanboComponent implements OnInit, AfterViewChecked {
     }
     this.dialogRef.close('Closed using function');
     const authToken = localStorage.getItem('authToken');
+    const accountid = localStorage.getItem('accountid');
     if (!authToken) {
       // console.log(authToken);
       console.error('Access token not found. User is not authenticated.');
       return;
     }
     this.isLoading = true;
-    // this.sinhVienService
-    //   .updateSinhVien(masv, tensv, ngaysinh, gt, quequan, lop, email, authToken)
-    //   .subscribe(
-    //     () => {
-    //       this.dialog.closeAll();
-    //       this.isLoading = false;
-    //       this.toastr.success('Sửa thành công');
-    //       console.log('Sửa sinh viên thành công');
-    //       this.SinhVienComponent.getAll();
-    //     },
-    //     (error: any) => {
-    //       this.dialogRef.close('Closed using function');
-    //       this.isLoading = false;
-    //       this.toastr.error('Lỗi sửa sinh viên');
-    //       console.error('Lỗi sửa sinh viên:', error);
-    //     }
-    //   );
+    this.donviService.getDonvi(accountid).subscribe(async(res) => {
+      console.log(res.maDvtt);
+      const donvithuctap = res.maDvtt;
+      await this.canBoService
+        .editCanBo(macb, tencb, gt, ngaysinh, sdt, donvithuctap, authToken)
+        .subscribe({
+          next: async () => {
+           this.ngZone.run(() => {
+             this.dialog.closeAll();
+             this.isLoading = false;
+             this.toastr.success('Sửa thành công');
+             console.log('Sửa cán bộ thành công');
+             this.CanboComponent.getCanBoList();
+           });
+          },
+          error: (error: any) => {
+           this.ngZone.run(() => {
+             this.dialogRef.close('Closed using function');
+             this.isLoading = false;
+             this.toastr.error('Lỗi sửa cán bộ');
+             console.error('Lỗi sửa cán bộ:', error);
+           });
+          },
+        });
+    });
   }
   onGenderChange(event: any) {
     this.gender = event.value;
