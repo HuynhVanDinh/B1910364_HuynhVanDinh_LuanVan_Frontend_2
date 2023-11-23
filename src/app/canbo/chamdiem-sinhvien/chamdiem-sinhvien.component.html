@@ -191,15 +191,16 @@
         </th>
         <td class="text-center btn-status" mat-cell *matCellDef="let element">
           <button
-            *ngIf="element.trangThai != 1"
+            *ngIf="element.trangThai != 1 && element.trangThai != 2 "
             mat-raised-button
             color="accent"
+            [disabled]="element.trangThai == 3"
             (click)="chamdiem(element)"
           >
             Chấm điểm
           </button>
           <button
-            *ngIf="element.trangThai == 1"
+            *ngIf="element.trangThai == 1 || element.trangThai == 2"
             mat-raised-button
             color="warn"
             (click)="suadiem(element)"

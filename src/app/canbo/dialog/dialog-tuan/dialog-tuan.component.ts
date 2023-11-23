@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   MatDialog,
   MatDialogRef,
@@ -19,7 +19,7 @@ export class DialogTuanComponent {
   id!: number;
   myForm!: FormGroup;
   tenDot!: string;
-  soBuoi!: number;
+  soBuoi = new FormControl<number | null>(null, Validators.required);
   thoiGianBatDau!: Date;
   thoiGianKetThuc!: Date;
   isEdit!: boolean;
@@ -69,8 +69,7 @@ export class DialogTuanComponent {
       this.id = this.data.tuan.id_tuan;
       this.thoiGianBatDau = this.data.tuan.batdau;
       this.thoiGianKetThuc = this.data.tuan.hethan;
-       this.soBuoi = this.data.tuan.so_buoi;
-       this.myForm.get('soBuoi')?.setValue(this.data.tuan.so_buoi);
+      this.myForm.get('soBuoi')?.setValue(this.data.tuan.so_buoi);
     } else {
       this.isEditMode = false;
     }
@@ -109,9 +108,9 @@ export class DialogTuanComponent {
       this.myForm.markAllAsTouched();
       return;
     }
-     const soBuoiValue = this.myForm.get('soBuoi')!.value;
-     soBuoi = soBuoiValue;
-    this.dialogRef.close('Closed using function');
+    const soBuoiValue = this.myForm.get('soBuoi')!.value;
+    soBuoi = soBuoiValue;
+    // this.dialogRef.close('Closed using function');
     const authToken = localStorage.getItem('authToken');
     if (!authToken) {
       console.error('Access token not found. User is not authenticated.');
@@ -123,7 +122,13 @@ export class DialogTuanComponent {
     if (accountid) {
       this.canboService.getMaCB(accountid).subscribe((data) => {
         this.tuanService
-          .createTuan(thoiGianBatDau, thoiGianKetThuc, soBuoi, data.maCB, authToken)
+          .createTuan(
+            thoiGianBatDau,
+            thoiGianKetThuc,
+            soBuoi,
+            data.maCB,
+            authToken
+          )
           .subscribe(
             () => {
               this.dialog.closeAll();
@@ -133,23 +138,28 @@ export class DialogTuanComponent {
               this.TuanComponent.getTuanCanBo();
             },
             (error: any) => {
-              this.dialogRef.close('Closed using function');
+              // this.dialogRef.close('Closed using function');
               this.isLoading = false;
-              this.toastr.error('Lỗi thêm tuần');
+              this.toastr.error(error);
               console.error('Lỗi thêm tuần:', error);
             }
           );
       });
     }
   }
-  suaTuan(id: number, thoiGianBatDau: Date, thoiGianKetThuc: Date, soBuoi: number): void {
+  suaTuan(
+    id: number,
+    thoiGianBatDau: Date,
+    thoiGianKetThuc: Date,
+    soBuoi: number
+  ): void {
     if (this.myForm.invalid) {
       this.myForm.markAllAsTouched();
       return;
     }
     const soBuoiValue = this.myForm.get('soBuoi')!.value;
     soBuoi = soBuoiValue;
-    this.dialogRef.close('Closed using function');
+    // this.dialogRef.close('Closed using function');
     const authToken = localStorage.getItem('authToken');
     if (!authToken) {
       // console.log(authToken);
@@ -169,9 +179,9 @@ export class DialogTuanComponent {
           this.TuanComponent.getTuanCanBo();
         },
         (error: any) => {
-          this.dialogRef.close('Closed using function');
+          // this.dialogRef.close('Closed using function');
           this.isLoading = false;
-          this.toastr.error('Lỗi sửa tuần');
+          this.toastr.error(error);
           console.error('Lỗi sữa tuần:', error);
         }
       );

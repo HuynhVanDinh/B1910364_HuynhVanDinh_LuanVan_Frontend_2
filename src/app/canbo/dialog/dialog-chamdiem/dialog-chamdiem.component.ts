@@ -72,7 +72,7 @@ export class DialogChamdiemComponent {
     this.myForm = this.fb.group({
       diem: [
         null,
-        [Validators.required, Validators.min(0.1), Validators.max(10)],
+        [Validators.required, Validators.min(0), Validators.max(10)],
       ],
     });
 
@@ -109,7 +109,7 @@ export class DialogChamdiemComponent {
           `diem${this.listBieuMau[j].maPDCB}`,
           new FormControl(null, [
             Validators.required,
-            Validators.min(0.1),
+            Validators.min(0),
             Validators.max(10),
           ])
         );
@@ -146,10 +146,9 @@ export class DialogChamdiemComponent {
                   () => {
                     this.dialog.closeAll();
                     this.isLoading = false;
-                    this.toastr.success('Chấm điểm thành công');
-                    this.snackBar.open('Chấm điểm thành công', 'Đóng', {
-                      duration: 3000,
-                    });
+                    // this.snackBar.open('Chấm điểm thành công', 'Đóng', {
+                    //   duration: 3000,
+                    // });
                     this.ChamDiemComponent.getAllSinhVien();
                     console.log('Chấm điểm thành công');
                     //  this.refreshService.triggerRefresh();
@@ -171,6 +170,7 @@ export class DialogChamdiemComponent {
           });
         }
       }
+      this.toastr.success('Chấm điểm thành công');
       console.log('Dữ liệu', maPDCBValues);
     } else {
       this.snackBar.open(

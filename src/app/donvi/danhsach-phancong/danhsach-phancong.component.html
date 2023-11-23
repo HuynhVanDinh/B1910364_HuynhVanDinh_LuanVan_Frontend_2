@@ -1,4 +1,7 @@
 <div class="ml-2 mr-2 mt-3">
+  <div *ngIf="canBoList.length == 0">
+     <h1 class="text-center">Chưa có cán bộ nào</h1>
+    </div>
   <div class="row">
     <div class="col-md-4 my-2" *ngFor="let canbo of canBoList">
       <app-phancong-canbo [canbo]="canbo"></app-phancong-canbo>

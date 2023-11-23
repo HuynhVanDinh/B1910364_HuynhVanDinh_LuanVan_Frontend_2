@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -34,10 +34,16 @@ export class TuanService {
       hethan: hethan,
       so_buoi: soBuoi,
     };
-    return this.http.post<any>(url, body, {
-      params: { macb: macb.toString() },
-      headers: headers,
-    });
+    return this.http
+      .post<any>(url, body, {
+        params: { macb: macb.toString() },
+        headers: headers,
+      })
+      .pipe(
+        catchError((error) => {
+          throw error.error.message;
+        })
+      );;
   }
   editTuan(
     id: number,
@@ -59,6 +65,10 @@ export class TuanService {
     return this.http.put<any>(url, body, {
       // params: { macb: macb.toString() },
       headers: headers,
-    });
+    }).pipe(
+        catchError((error) => {
+          throw error.error.message;
+        })
+      );;
   }
 }

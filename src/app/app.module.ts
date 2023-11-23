@@ -82,6 +82,8 @@ import { FilterByMuc2Pipe } from './filter-by-muc2.pipe';
 import { Filter2Pipe } from './filter2.pipe';
 import { OrganizationChartModule } from 'primeng/organizationchart';
 import { PageUnitComponent } from './donvi/page-unit/page-unit.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 @NgModule({
   declarations: [
     AppComponent,
@@ -169,6 +171,8 @@ import { PageUnitComponent } from './donvi/page-unit/page-unit.component';
     NgParticlesModule,
     MatSnackBarModule,
     OrganizationChartModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     ToastrModule.forRoot({
       timeOut: 1500, // Thiết lập thời gian tồn tại là 1,5 giây
       progressBar: true, // Hiển thị thanh tiến trình

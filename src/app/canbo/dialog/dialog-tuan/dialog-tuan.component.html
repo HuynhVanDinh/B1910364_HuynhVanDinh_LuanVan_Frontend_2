@@ -28,62 +28,78 @@
         >Vui lòng nhập tên đơn vị !!</mat-error
       >
     </mat-form-field> -->
-    <mat-form-field class="w-100">
-        <mat-label>Thời gian bắt đầu</mat-label>
-        <!-- <p-calendar [(ngModel)]="date" matInput
+    <mat-form-field class="w-100" color="accent" appearance="fill">
+      <mat-label>Thời gian bắt đầu</mat-label>
+      <!-- <p-calendar [(ngModel)]="date" matInput
           formControlName="ngaysinh"
           placeholder="Vd: 16/06/2001"></p-calendar> -->
-        <input
-          type="date"
-          matInput
-          formControlName="thoiGianBatDau"
-          placeholder="Vd: 16/06/2001"
-          [(ngModel)]="thoiGianBatDau"
-          required
-        />
-        <mat-error
-          *ngIf="
-            myForm.get('thoiGianBatDau')!.invalid && myForm.get('thoiGianBatDau')!.touched
-          "
-          >Vui lòng nhập thời gian bắt đầu !!</mat-error
-        >
-      </mat-form-field>
-      <mat-form-field class="w-100">
-        <mat-label>Thời gian kết thúc</mat-label>
-        <input
-          type="date"
-          matInput
-          formControlName="thoiGianKetThuc"
-          placeholder="Vd: 16/06/2001"
-          [(ngModel)]="thoiGianKetThuc"
-          required
-        />
-        <mat-error
-          *ngIf="
-            myForm.get('thoiGianKetThuc')!.invalid && myForm.get('thoiGianKetThuc')!.touched
-          "
-          >Vui lòng nhập thời gian kết thúc !!</mat-error
-        >
-      </mat-form-field>
-            <mat-form-field class="w-100">
-        <mat-label>Số buổi</mat-label>
-        <mat-select formControlName="soBuoi">
-          <mat-option
-            *ngFor="let buoi of danhSachBuoi"
-            [value]="buoi.buoiId"
-          >
-            {{ buoi.tenbuoi }}
-          </mat-option>
-        </mat-select>
+      <input
+        [matDatepicker]="tgbd"
+        matInput
+        formControlName="thoiGianBatDau"
+        placeholder="Vd: 16/06/2001"
+        [(ngModel)]="thoiGianBatDau"
+        required
+      />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="tgbd"></mat-datepicker-toggle>
+      <mat-datepicker #tgbd disabled="false">
+         <mat-datepicker-actions>
+          <button mat-button matDatepickerCancel>Cancel</button>
+          <button mat-raised-button color="primary" matDatepickerApply>
+            Apply
+          </button>
+        </mat-datepicker-actions>
+      </mat-datepicker>
+      <mat-error
+        *ngIf="
+          myForm.get('thoiGianBatDau')!.invalid &&
+          myForm.get('thoiGianBatDau')!.touched
+        "
+        >Vui lòng nhập thời gian bắt đầu !!</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field class="w-100" color="accent" appearance="fill">
+      <mat-label>Thời gian kết thúc</mat-label>
+      <input
+        [matDatepicker]="tgkt"
+        matInput
+        formControlName="thoiGianKetThuc"
+        placeholder="Vd: 16/06/2001"
+        [(ngModel)]="thoiGianKetThuc"
+        required
+      />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="tgkt"></mat-datepicker-toggle>
+      <mat-datepicker #tgkt disabled="false">
+        <mat-datepicker-actions>
+          <button mat-button matDatepickerCancel>Cancel</button>
+          <button mat-raised-button color="primary" matDatepickerApply>
+            Apply
+          </button>
+        </mat-datepicker-actions>
+      </mat-datepicker>
 
-        <mat-error
-          *ngIf="
-            myForm.get('soBuoi')!.invalid && myForm.get('soBuoi')!.touched
-          "
-        >
-          Vui lòng nhập số buổi !!
-        </mat-error>
-      </mat-form-field>
+      <mat-error
+        *ngIf="
+          myForm.get('thoiGianKetThuc')!.invalid &&
+          myForm.get('thoiGianKetThuc')!.touched
+        "
+        >Vui lòng nhập thời gian kết thúc !!</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Số buổi</mat-label>
+      <mat-select formControlName="soBuoi" required>
+        <mat-option *ngFor="let buoi of danhSachBuoi" [value]="buoi.buoiId">
+          {{ buoi.tenbuoi }}
+        </mat-option>
+      </mat-select>
+
+      <mat-error *ngIf="soBuoi.hasError('required')">
+        Vui lòng nhập số buổi !!
+      </mat-error>
+    </mat-form-field>
   </div>
 </form>
 <div class="row m-3">
@@ -91,7 +107,9 @@
     <button
       class="btn btn-success float-right ml-2"
       *ngIf="!isEditMode"
-      (click)="themTuan( thoiGianBatDau, thoiGianKetThuc, soBuoi)"
+      (click)="
+        themTuan(thoiGianBatDau, thoiGianKetThuc, myForm.get('soBuoi')?.value)
+      "
     >
       {{ "add" | translate }}
     </button>
@@ -99,7 +117,14 @@
     <button
       class="btn btn-success float-right ml-2"
       *ngIf="isEditMode"
-      (click)="suaTuan(id, thoiGianBatDau, thoiGianKetThuc, soBuoi)"
+      (click)="
+        suaTuan(
+          id,
+          thoiGianBatDau,
+          thoiGianKetThuc,
+          myForm.get('soBuoi')?.value
+        )
+      "
     >
       {{ "edit" | translate }}
     </button>

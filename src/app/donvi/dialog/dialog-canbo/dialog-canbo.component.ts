@@ -139,7 +139,7 @@ export class DialogCanboComponent implements OnInit, AfterViewChecked {
       this.myForm.markAllAsTouched();
       return;
     }
-    this.dialogRef.close('Closed using function');
+    // this.dialogRef.close('Closed using function');
     this.isLoading = true;
     this.imgService
       .getDefaultImageAsFile()
@@ -203,7 +203,7 @@ export class DialogCanboComponent implements OnInit, AfterViewChecked {
       this.myForm.markAllAsTouched();
       return;
     }
-    this.dialogRef.close('Closed using function');
+    // this.dialogRef.close('Closed using function');
     const authToken = localStorage.getItem('authToken');
     const accountid = localStorage.getItem('accountid');
     if (!authToken) {

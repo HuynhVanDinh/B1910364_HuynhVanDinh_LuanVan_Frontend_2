@@ -104,7 +104,7 @@ export class DialogSuadiemComponent {
       for (const item of this.listBieuMau) {
         const controlName = 'diem' + item.maDiemCB;
         const control = this.myForm.get(controlName);
-        console.log(controlName)
+        console.log(controlName);
         if (control && control.valid) {
           const authToken = localStorage.getItem('authToken');
           if (!authToken) {
@@ -115,38 +115,31 @@ export class DialogSuadiemComponent {
           const accountid = localStorage.getItem('accountid');
           this.isLoading = true;
           if (accountid) {
-
-              console.log(
-
-                control.value,
+            console.log(control.value, item.maDiemCB);
+            this.diemCanBoService
+              .editDiemCanBo(
                 item.maDiemCB,
+                control.value,
 
+                authToken
+              )
+              .subscribe(
+                () => {
+                  this.dialog.closeAll();
+                  this.isLoading = false;
+
+                  // this.snackBar.open('Sử điểm thành công', 'Đóng', {
+                  //   duration: 3000,
+                  // });
+                  console.log('Sửa điểm thành công');
+                },
+                (error: any) => {
+                  this.dialogRef.close('Closed using function');
+                  this.isLoading = false;
+                  this.toastr.error('Lỗi sửa điểm');
+                  console.error('Lỗi sửa điểm:', error);
+                }
               );
-              this.diemCanBoService
-                .editDiemCanBo(
-                  item.maDiemCB,
-                  control.value,
-
-                  authToken
-                )
-                .subscribe(
-                  () => {
-                    this.dialog.closeAll();
-                    this.isLoading = false;
-                    this.toastr.success('Sửa điểm thành công');
-                    this.snackBar.open('Sử điểm thành công', 'Đóng', {
-                      duration: 3000,
-                    });
-                    console.log('Sửa điểm thành công');
-
-                  },
-                  (error: any) => {
-                    this.dialogRef.close('Closed using function');
-                    this.isLoading = false;
-                    this.toastr.error('Lỗi sửa điểm');
-                    console.error('Lỗi sửa điểm:', error);
-                  }
-                );
           }
           // maPDCBValues.push({
           //   maPDCB: item.item.phieuDiemCanbo.maPDCB,
@@ -155,6 +148,7 @@ export class DialogSuadiemComponent {
           // });
         }
       }
+      this.toastr.success('Sửa điểm thành công');
       // console.log('Dữ liệu', maPDCBValues);
     } else {
       this.snackBar.open(

@@ -188,8 +188,13 @@
         >
           Cán bộ HD
         </th>
-        <td class="text-center" mat-cell *matCellDef="let element">
-          {{ element.canBoHuongDan.tenCB }}
+        <td class="text-center name" mat-cell *matCellDef="let element">
+          <div *ngIf="element.canBoHuongDan != null">
+            {{ element.canBoHuongDan.tenCB }}
+          </div>
+          <div *ngIf="element.canBoHuongDan == null">
+            <p-tag severity="warning" value="Chưa phân công"></p-tag>
+          </div>
           <!-- <mat-icon (click)="exportToPdf('http://localhost:8080/file/'+element.bangDiem)">visibility</mat-icon> -->
         </td>
       </ng-container>
