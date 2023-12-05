@@ -83,7 +83,11 @@ import { Filter2Pipe } from './filter2.pipe';
 import { OrganizationChartModule } from 'primeng/organizationchart';
 import { PageUnitComponent } from './donvi/page-unit/page-unit.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import {
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+  MatMomentDateModule,
+} from '@angular/material-moment-adapter';
 @NgModule({
   declarations: [
     AppComponent,
@@ -126,7 +130,6 @@ import { MatNativeDateModule } from '@angular/material/core';
     FilterByMuc2Pipe,
     Filter2Pipe,
     PageUnitComponent,
-
   ],
   imports: [
     TranslateModule.forRoot({
@@ -173,6 +176,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     OrganizationChartModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatMomentDateModule,
     ToastrModule.forRoot({
       timeOut: 1500, // Thiết lập thời gian tồn tại là 1,5 giây
       progressBar: true, // Hiển thị thanh tiến trình
@@ -180,6 +184,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     }),
   ],
   providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
     MultilevelMenuService,
     {
       provide: MatPaginatorIntl,

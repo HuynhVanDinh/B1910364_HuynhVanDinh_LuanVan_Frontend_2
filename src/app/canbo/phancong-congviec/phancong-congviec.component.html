@@ -1,12 +1,16 @@
 <div class="shadow p-2 mx-2 my-2 rounded">
   <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-9">
       <h2 class="text-success m-0">Phân công công việc</h2>
       <!-- <h2 class="text-success m-0">{{ "Mgtype" | translate }}</h2> -->
       <p>Phân công công việc</p>
       <!-- <p>{{ "path" | translate }}</p> -->
     </div>
-    <div class="col-md-2 mt-3">
+    <div class="col-md-3 mt-3">
+      <button color="primary" mat-raised-button (click)="refresh()">
+        <mat-icon>refresh</mat-icon>
+        Làm mới
+      </button>
       <button
         *ngIf="tuans.length != 0"
         [disabled]="tuans.length >= 8"

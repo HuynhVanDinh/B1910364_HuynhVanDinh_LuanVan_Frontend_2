@@ -43,7 +43,7 @@ export class TuanService {
         catchError((error) => {
           throw error.error.message;
         })
-      );;
+      );
   }
   editTuan(
     id: number,
@@ -62,13 +62,16 @@ export class TuanService {
       hethan: hethan,
       so_buoi: soBuoi,
     };
-    return this.http.put<any>(url, body, {
-      // params: { macb: macb.toString() },
-      headers: headers,
-    }).pipe(
+    console.log(batdau, hethan);
+    return this.http
+      .put<any>(url, body, {
+        // params: { macb: macb.toString() },
+        headers: headers,
+      })
+      .pipe(
         catchError((error) => {
           throw error.error.message;
         })
-      );;
+      );
   }
 }

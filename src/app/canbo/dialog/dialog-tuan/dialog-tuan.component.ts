@@ -1,5 +1,7 @@
+import { DatePipe } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 import {
   MatDialog,
   MatDialogRef,
@@ -76,6 +78,7 @@ export class DialogTuanComponent {
   }
 
   constructor(
+    @Inject(MAT_DATE_LOCALE) private dateLocale: string,
     // private khoaService: KhoaService,
     private canboService: CanboService,
     private toastr: ToastrService,

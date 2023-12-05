@@ -64,6 +64,9 @@ export class PhancongCongviecComponent implements OnInit {
       },
       disableClose: true,
     });
-    console.log(data)
+    console.log(data);
+  }
+  refresh() {
+    this.getTuanCanBo();
   }
 }

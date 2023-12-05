@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./dialog-xoa-danhgia.component.css'],
 })
 export class DialogXoaDanhgiaComponent {
+  isLoading: boolean = false;
   name: any;
   //khai báo constructor để nhận tham số data và lưu nó trong một thuộc tính data
   constructor(
@@ -27,17 +28,21 @@ export class DialogXoaDanhgiaComponent {
       console.error('Access token not found. User is not authenticated.');
       return;
     }
+    this.isLoading = true;
     const maDG = this.data.danhgia;
     const CongViecComponent = this.data.CongViecComponent;
     CongViecComponent.danhGiaService.deleteDanhGia(maDG, authToken).subscribe(
       () => {
+        this.isLoading = false;
         this.toastr.success('Gỡ thành công');
         console.log('Gỡ thành công');
         CongViecComponent.getAllCongViecBySinhVienAndCanBoAndTuan();
+        CongViecComponent.getAllDanhGiaBySinhVienAndCanBoAndTuan();
         this.dialogRef.close('Closed using function');
         // Xử lý logic sau khi xóa thành công
       },
       (error: any) => {
+        this.isLoading = false;
         this.toastr.error('Gỡ thất bại');
         console.error('Gỡ thất bại:', error);
         // Xử lý logic khi có lỗi xảy ra
